@@ -55,9 +55,14 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-# GmapのAPIキーを使用するためGitHubに上げないよう環境変数を管理するgemを導入
+
 gem "dotenv-rails"
+# GmapのAPIキーを使用するためGitHubに上げないよう環境変数を管理するgemを導入
 # 自身で作成したアプリケーションの直下に.envファイルを作成することで、パスワードなどネット上に公開させたくない情報を扱い、自動で読み込むことが可能になる
 
-# geocoding(住所や地名から位置座標を取得したり、その逆を行ったり)ができるgemを導入
 gem "geocoder"
+# geocoding(住所や地名から位置座標を取得したり、その逆を行ったり)ができるgemを導入
+
+gem "rename"
+# アプリ名変更の為に導入(outdoor_mapからNatureSpotterに変更)
+# 参考：https://autovice.jp/articles/38

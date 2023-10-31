@@ -1,5 +1,5 @@
 {
-  "name": "outdoor-map",
+  "name":"nature_spotter",
   "private": true,
   "dependencies": {
     "@babel/plugin-proposal-private-methods": "^7.18.6",
