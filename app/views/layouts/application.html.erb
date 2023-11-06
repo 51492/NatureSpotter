@@ -21,12 +21,13 @@
         <li> <%= link_to "Logout", destroy_user_session_path, method: :delete %> </li>
 
       <% else %>
-        <!--<li> < %= link_to "About", about_path %> </li>-->
+        <li> <%= link_to "About", about_path %> </li>
         <!--<li> < %= link_to "Posts", about_path %> </li>-->
         <!--<li> < %= link_to "Users", about_path %> </li>-->
         <li> <%= link_to "Signup", new_user_registration_path %> </li>
-        <li> <%= link_to "Login" %> </li>
-      
+        <li> <%= link_to "ゲストログイン(閲覧用)", users_guest_sign_in_path, method: :post %> </li>
+        <li> <%= link_to "Login", new_user_session_path %> </li>
+
       <% end %>
     </header>
 
