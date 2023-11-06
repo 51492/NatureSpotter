@@ -6,3 +6,9 @@ class Users::SessionsController < Devise::SessionsController
   end
 
 end
+
+
+#以下参考
+
+  # 簡単ログイン・ゲストログイン機能の実装方法（ポートフォリオ用）
+    # https://qiita.com/take18k_tech/items/35f9b5883f5be4c6e104
