@@ -6,29 +6,46 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <script src="https://kit.fontawesome.com/c518033bf8.js" crossorigin="anonymous"></script>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
     <header>
-      <% if user_signed_in? %>
-        <!--<li> < %= link_to "About", about_path %> </li>-->
-        <!--<li> < %= link_to "Posts", about_path %> </li>-->
-        <!--<li> < %= link_to "Users", about_path %> </li>-->
-        <!--<li> < %= link_to "New post", about_path %> </li>-->
-        <!--<li> < %= link_to "Mypage", about_path %> </li>-->
-        <li> <%= link_to "Logout", destroy_user_session_path, method: :delete %> </li>
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
 
-      <% else %>
-        <li> <%= link_to "About", about_path %> </li>
-        <!--<li> < %= link_to "Posts", about_path %> </li>-->
-        <!--<li> < %= link_to "Users", about_path %> </li>-->
-        <li> <%= link_to "Signup", new_user_registration_path %> </li>
-        <li> <%= link_to "ゲストログイン(閲覧用)", users_guest_sign_in_path, method: :post %> </li>
-        <li> <%= link_to "Login", new_user_session_path %> </li>
+          <a class="navbar-brand p-3" href="/"><%= image_tag('NatureSpotter_logo.png', :size => '100x100') %></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
 
-      <% end %>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+
+              <% if user_signed_in? %>
+                <!--<li class="nav-item"> < %= link_to "About", about_path %>, class: "nav-link" </li>-->
+                <!--<li class="nav-item"> < %= link_to "Posts", about_path %>, class: "nav-link" </li>-->
+                <!--<li class="nav-item"> < %= link_to "Users", about_path %>, class: "nav-link" </li>-->
+                <!--<li class="nav-item"> < %= link_to "New post", about_path, class: "nav-link" %> </li>-->
+                <!--<li class="nav-item"> < %= link_to "Mypage", about_path, class: "nav-link" %> </li>-->
+                <li class="nav-item"> <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "nav-link" %> </li>
+
+              <% else %>
+                <li class="nav-item"> <%= link_to "About", about_path, class: "nav-link" %> </li>
+                <!--<li class="nav-item"> < %= link_to "Posts", about_path, class: "nav-link" %> </li>-->
+                <!--<li class="nav-item"> < %= link_to "Users", about_path, class: "nav-link" %> </li>-->
+                <li class="nav-item"> <%= link_to "Signup", new_user_registration_path, class: "nav-link" %> </li>
+                <li class="nav-item"> <%= link_to "ゲストログイン(閲覧用)", users_guest_sign_in_path, method: :post, class: "nav-link" %> </li>
+                <li class="nav-item"> <%= link_to "Login", new_user_session_path, class: "nav-link" %> </li>
+
+              <% end %>
+            </ul>
+          </div>
+
+        </div>
+      </nav>
     </header>
 
 

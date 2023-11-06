@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  namespace :users do
+    resources :posts, only: [:show]
+  end
   # 管理者側 =====================================================================
   devise_for :admins
   # ==============================================================================
@@ -10,6 +13,8 @@ Rails.application.routes.draw do
     root :to => "homes#top"
     # get '/NatureSpotter' => 'users/homes#top', as: "top"
     get '/about' => 'homes#about', as: "about"
+    
+    resources :posts, except: [:show]
   end
 
   devise_for :users, controllers: {

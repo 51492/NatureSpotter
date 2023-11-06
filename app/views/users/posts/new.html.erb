@@ -1,0 +1,64 @@
+<div class="container">
+  <div class="row">
+    <h2 class="ch">新規投稿</h2>
+  </div>
+
+  <%= form_with model: @post do |f| %>
+    <div class="row">
+      <table class="col-10 mx-auto table">
+
+        <tr class="form-group">
+          <td class="align-middle text-right"><h4>画像</h4></td>
+          <td><%= f.file_field :image, accept: "image/*" %></td>
+          <td></td>
+        </tr>
+
+        <tr class>
+          <td class="align-middle text-right"><h4>カテゴリー</h4></td>
+          <td>
+            <div class="dropdown">
+              <button type="button" id="dropdown1"
+                  class="btn btn-secondary dropdown-toggle"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false">
+                Dropdown button
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdown1">
+                <a class="dropdown-item" href="#">Menu #1</a>
+                <a class="dropdown-item" href="#">Menu #2</a>
+                <a class="dropdown-item" href="#">Menu #3</a>
+              </div>
+            </div>
+          </td>
+          <td></td>
+        </tr>
+
+        <tr>
+          <td class="align-middle text-right"><label for="place"><h4>スポット名</h4></label></td>
+          <td colspan="2"><%= f.text_field :plase, id: "plase", placeholder: "〇〇公園", class: "form-control plase" %></td>
+        </tr>
+
+        <tr>
+          <td class="align-middle text-right"><label for="address"><h4>住所</h4></label></td>
+          <td colspan="2"><%= f.text_field :adress, id: "address", placeholder: "〇〇県〇〇市1-1-1", class: "form-control address" %></td>
+        </tr>
+
+        <tr>
+          <td class="align-middle text-right"><label for="caption"><h4>説明</h4></label></td>
+          <td colspan="2"><%= f.text_area :caption, id: "caption", placeholder: "説明文を入力", class: "form-control caption", rows: 4 %></td>
+        </tr>
+
+        <tr>
+          <td></td>
+          <td colspan="2", class="row">
+            <div class="col-6">
+              <%= f.submit '投稿', class: "btn btn-success btn-block btn-lg" %>
+            </div>
+          </td>
+        </tr>
+      </table>
+
+      </div>
+    <% end %>
+</div>
