@@ -8,8 +8,7 @@ Rails.application.routes.draw do
   # 会員側 =======================================================================
   namespace :users do
     resources :posts, only: [:show]
-    get 'edit'
-    get 'show'
+    resources :users, only: [:show, :edit]
   end
 
   scope module: :users do

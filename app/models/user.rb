@@ -3,12 +3,12 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-         
+
   has_many :posts, dependent: :destroy
-  
+
   # プロフィール画像関連 =========================================================
   has_one_attached :profile_image
-  
+
   def get_profile_image(width, height)
     unless profile_image.attached?
       file_path = Rails.root.join('app/assets/images/sample-author1.jpg')
@@ -22,6 +22,7 @@ class User < ApplicationRecord
   def self.guest
     find_or_create_by(email: "guest@example.com") do |user|
       user.password = SecureRandom.urlsafe_base64
+      user.name = "Guest"
       # user.confirmed_at = Time.now # メール確認機能用の記述
     end
   end

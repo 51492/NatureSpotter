@@ -10,10 +10,9 @@
         <table class="table">
 
           <tr>
-            <td style="width: 30%" >名前</td>
-            <td style="width: 70%"><%= @post.user.name %><%#= link_to @post.user.name, user_path(@user) %></td>
+            <td style="width: 30%">名前</td>
+            <td style="width: 70%"><%= @user.name %><%#= link_to @post.user.name, user_path(@user) %></td>
           </tr>
-          <tr></tr>
 
           <tr>
             <td style="width: 30%">スポット名</td>
@@ -32,7 +31,7 @@
 
           <tr>
             <td style="width: 30%">説明</td>
-            <td style="width: 70%"><p class="text-break"> <%= @post.caption %></td>
+            <td style="width: 70%"><p class="text-break"><%= @post.caption %></td>
           </tr>
 
           <tr>
