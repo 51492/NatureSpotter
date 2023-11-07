@@ -1,2 +1,113 @@
-<h1>Users::Posts#show</h1>
-<p>Find me in app/views/users/posts/show.html.erb</p>
+<div class="row my-3">
+  <div class="col-sm-8 col-md-8 col-lg-5 offset-sm-2 offset-md-2 offset-lg-1 py-5">
+    <div class="mb-5 py-5"><%= image_tag 'sample-author1.jpg', size: "450x450", class: "img-fluid rounded align-self-center" %><%#= attachment_image_tag @post, :image, class: "img-fluid rounded align-self-center", fallback: "no_image.jpg", size: "450x450" %></div>
+    <!--<div id=map></div>-->
+  </div>
+
+  <div class="col-sm-10 col-md-8 col-lg-5 offset-sm-1 offset-md-2 offset-lg-0 py-5 pt-5">
+    <div class="row my-5">
+      <div class="col-12">
+        <table class="table">
+
+          <tr>
+            <td style="width: 30%" >名前</td>
+            <td style="width: 70%"><%= @post.user.name %><%#= link_to @post.user.name, user_path(@user) %></td>
+          </tr>
+          <tr></tr>
+
+          <tr>
+            <td style="width: 30%">スポット名</td>
+            <td style="width: 70%"><%= @post.place %></td>
+          </tr>
+
+          <tr>
+            <td style="width: 30%">住所</td>
+            <td style="width: 70%"><%= @post.address %></td>
+          </tr>
+
+          <!--<tr>-->
+          <!--  <td style="width: 30%">カテゴリー</td>-->
+          <!--  <td style="width: 70%"><%#= @post.category.name %></td>-->
+          <!--</tr>-->
+
+          <tr>
+            <td style="width: 30%">説明</td>
+            <td style="width: 70%"><p class="text-break"> <%= @post.caption %></td>
+          </tr>
+
+          <tr>
+            <td style="width: 30%">投稿日時</td>
+            <td style="width: 70%"><%= @post.created_at.strftime('%Y/%m/%d %H:%M') %></td>
+          </tr>
+
+          <% if @user.id == current_user.id %>
+            <tr>
+              <td style="width: 40%"><%= link_to "投稿編集", edit_post_path(@post), class: "btn btn-success" %></td>
+              <td style="width: 60%"><%= link_to "投稿削除", post_path(@post), method: :delete,class: "btn btn-danger", data: { confirm: "本当に投稿を削除しますか？" } %></td>
+            </tr>
+          <% end %>
+        </table>
+
+        <!--いいね機能-->
+        <!--<div id="like-btn<%#= @post.id %>">-->
+        <!--  <%#= render 'user/likes/like_btn', post: @post %>-->
+        <!--</div>-->
+
+        <!--タグリスト-->
+        <% @taggings.each do |list| %>
+        <i class="fa-sharp fa-solid fa-tag"></i>
+          <%= link_to list.tag,search_tag_path(tag_id: list.id) %>
+        <% end %>
+
+        <!--コメント表示機能-->
+        <!--<div class="comment_index">-->
+        <!--  <%#= render 'user/comments/comment_index', post: @post %>-->
+        <!--</div>-->
+
+        <!--コメント投稿機能-->
+        <%#= form_with(model:[@post, @comment], remote: true) do |f| %>
+        <!--  <div class="form-group">-->
+            <%#= f.text_area :comment, rows:'3',placeholder: "コメントを入力", class: "form-control text_area" %>
+        <!--  </div>-->
+        <!--  <div class="form-group py-3">-->
+            <%#= f.submit "コメントする", class: "btn-create btn-sm" %>
+        <!--  </div>-->
+        <%# end %>
+
+        <!--通報機能-->
+        <%# if @user.id != current_user.id %>
+          <!--<div class="row">-->
+          <!--  <div class="col-sm-3 col-md-3 col-lg-4 offset-sm-9 offset-md-9 offset-lg-8 my-5 py-4">-->
+              <%# if @post.reported_by?(current_user) %>
+                <%#= link_to '通報する', post_reports_path(@post), method: :post, class: "btn btn-delete btn-sm", data: { confirm: "不適切な表現の投稿として通報しますか？" } %>
+              <%# end %>
+          <!--  </div>-->
+          <!--</div>-->
+        <%# end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--マップ表示機能-->
+<!--<script>-->
+<!--function initMap(){-->
+<!--  let geocoder = new google.maps.Geocoder()-->
+<!--  let map = new google.maps.Map(document.getElementById('map'), {-->
+<!--  center: {lat: -34.397, lng: 150.644},-->
+<!--  zoom: 15-->
+<!--  });-->
+<!--  let address = '<%#= @post.address %>';-->
+<!--  geocoder.geocode( { 'address': address }, function(results, status) {-->
+<!--    if (status == 'OK') {-->
+<!--      map.setCenter(results[0].geometry.location);-->
+<!--      var marker = new google.maps.Marker({-->
+<!--          map: map,-->
+<!--          position: results[0].geometry.location-->
+<!--      });-->
+<!--    } else {-->
+<!--      alert('該当する結果がありませんでした：' + status);-->
+<!--    }-->
+<!--  });-->
+<!--}-->
+<!--</script><script src="https://maps.googleapis.com/maps/api/js?key=<%#= ENV['GMAP_API'] %>&callback=initMap" async defer></script>-->

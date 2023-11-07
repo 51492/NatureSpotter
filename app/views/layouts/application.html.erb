@@ -25,19 +25,19 @@
             <ul class="navbar-nav ml-auto">
 
               <% if user_signed_in? %>
-                <!--<li class="nav-item"> < %= link_to "About", about_path %>, class: "nav-link" </li>-->
-                <!--<li class="nav-item"> < %= link_to "Posts", about_path %>, class: "nav-link" </li>-->
-                <!--<li class="nav-item"> < %= link_to "Users", about_path %>, class: "nav-link" </li>-->
-                <!--<li class="nav-item"> < %= link_to "New post", about_path, class: "nav-link" %> </li>-->
-                <!--<li class="nav-item"> < %= link_to "Mypage", about_path, class: "nav-link" %> </li>-->
+                <!--<li class="nav-item"> <%#= link_to "About", about_path, class: "nav-link" %> </li>-->
+                <li class="nav-item"> <%= link_to "Posts", posts_path, class: "nav-link" %> </li>
+                <!--<li class="nav-item"> <%#= link_to "Users", about_path %>, class: "nav-link" </li>-->
+                <li class="nav-item"> <%= link_to "New post", new_post_path, class: "nav-link" %> </li>
+                <!--<li class="nav-item"> <%#= link_to "Mypage", about_path, class: "nav-link" %> </li>-->
                 <li class="nav-item"> <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "nav-link" %> </li>
 
               <% else %>
                 <li class="nav-item"> <%= link_to "About", about_path, class: "nav-link" %> </li>
-                <!--<li class="nav-item"> < %= link_to "Posts", about_path, class: "nav-link" %> </li>-->
-                <!--<li class="nav-item"> < %= link_to "Users", about_path, class: "nav-link" %> </li>-->
+                <li class="nav-item"> <%= link_to "Posts", posts_path, class: "nav-link" %> </li>
+                <!--<li class="nav-item"> <%#= link_to "Users", about_path, class: "nav-link" %> </li>-->
                 <li class="nav-item"> <%= link_to "Signup", new_user_registration_path, class: "nav-link" %> </li>
-                <li class="nav-item"> <%= link_to "ゲストログイン(閲覧用)", users_guest_sign_in_path, method: :post, class: "nav-link" %> </li>
+                <li class="nav-item"> <%= link_to "GuestLogin(閲覧用)", users_guest_sign_in_path, method: :post, class: "nav-link" %> </li>
                 <li class="nav-item"> <%= link_to "Login", new_user_session_path, class: "nav-link" %> </li>
 
               <% end %>
@@ -50,7 +50,13 @@
 
 
     <main>
-      <%= yield %>
+      <div class="container-fluid">
+        <% if notice != nil %>
+          <p class="alert alert-success" role="alert"><%= notice %></p>
+        <% end %>
+      
+        <%= yield %>
+      </div>
     </main>
   </body>
 </html>

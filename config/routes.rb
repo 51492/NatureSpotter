@@ -1,19 +1,24 @@
 Rails.application.routes.draw do
 
-  namespace :users do
-    resources :posts, only: [:show]
-  end
   # 管理者側 =====================================================================
   devise_for :admins
   # ==============================================================================
 
 
   # 会員側 =======================================================================
+  namespace :users do
+    resources :posts, only: [:show]
+    get 'edit'
+    get 'show'
+  end
+
   scope module: :users do
     root :to => "homes#top"
     # get '/NatureSpotter' => 'users/homes#top', as: "top"
     get '/about' => 'homes#about', as: "about"
-    
+    get "search_tag" => "posts#search_tag"
+
+    # resources :users, only: [:show, :edit]
     resources :posts, except: [:show]
   end
 

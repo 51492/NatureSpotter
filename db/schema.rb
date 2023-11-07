@@ -74,8 +74,8 @@ ActiveRecord::Schema.define(version: 2023_11_05_163057) do
   create_table "posts", force: :cascade do |t|
     t.integer "user_id", null: false
     t.text "caption"
-    t.string "place"
-    t.string "address"
+    t.string "place", null: false
+    t.string "address", null: false
     t.float "post_latitude"
     t.float "post_longitude"
     t.datetime "created_at", precision: 6, null: false
@@ -97,14 +97,16 @@ ActiveRecord::Schema.define(version: 2023_11_05_163057) do
     t.integer "tag_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["post_id", "tag_id"], name: "index_taggings_on_post_id_and_tag_id", unique: true
     t.index ["post_id"], name: "index_taggings_on_post_id"
     t.index ["tag_id"], name: "index_taggings_on_tag_id"
   end
 
   create_table "tags", force: :cascade do |t|
-    t.text "tag"
+    t.string "tag", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["tag"], name: "index_tags_on_tag", unique: true
   end
 
   create_table "users", force: :cascade do |t|
