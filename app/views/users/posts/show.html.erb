@@ -11,7 +11,7 @@
 
           <tr>
             <td style="width: 30%">名前</td>
-            <td style="width: 70%"><%= @user.name %><%#= link_to @post.user.name, user_path(@user) %></td>
+            <td style="width: 70%"><%= link_to @user.name, user_path(@user) %></td>
           </tr>
 
           <tr>
@@ -59,19 +59,25 @@
         <% end %>
 
         <!--コメント表示機能-->
-        <!--<div class="comment_index">-->
-        <!--  <%#= render 'user/comments/comment_index', post: @post %>-->
-        <!--</div>-->
+        <div class="comment_index">
+          <%= render 'comment_index', post: @post %>
+        </div>
 
         <!--コメント投稿機能-->
-        <%#= form_with(model:[@post, @comment], remote: true) do |f| %>
-        <!--  <div class="form-group">-->
-            <%#= f.text_area :comment, rows:'3',placeholder: "コメントを入力", class: "form-control text_area" %>
-        <!--  </div>-->
-        <!--  <div class="form-group py-3">-->
-            <%#= f.submit "コメントする", class: "btn-create btn-sm" %>
-        <!--  </div>-->
-        <%# end %>
+        <% if user_signed_in? %>
+  
+          <% if @current_user == nil %>
+            <%= form_with(model:[@post, @comment], remote: true) do |f| %>
+              <div class="form-group">
+                <%= f.text_area :comment, rows:'3',placeholder: "コメントを入力", class: "form-control text_area" %>
+              </div>
+              <div class="form-group py-3">
+                <%= f.submit "コメントする", class: "btn btn-success btn-sm" %>
+              </div>
+            <% end %>
+          <% end %>
+          
+        <% end %>
 
         <!--通報機能-->
         <%# if @user.id != current_user.id %>

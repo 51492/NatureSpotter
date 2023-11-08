@@ -18,7 +18,11 @@ Rails.application.routes.draw do
 
     # URIが「users/:id」となりdeviseと競合するためpathオプションを用いてURIを「user/:id」で定義
     resources :users, only: [:index, :show, :edit, :update], path: "user"
-    resources :posts
+    
+    # コメントのルートをpostのルートにネストする
+    resources :posts, only: [:new, :create, :index, :show, :destroy] do
+      resources :comments, only: [:create, :destroy] 
+    end
   end
 
   devise_for :users, controllers: {
