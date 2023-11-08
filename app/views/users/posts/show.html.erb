@@ -1,6 +1,6 @@
 <div class="row my-3">
   <div class="col-sm-8 col-md-8 col-lg-5 offset-sm-2 offset-md-2 offset-lg-1 py-5">
-    <div class="mb-5 py-5"><%= image_tag 'sample-author1.jpg', size: "450x450", class: "img-fluid rounded align-self-center" %><%#= attachment_image_tag @post, :image, class: "img-fluid rounded align-self-center", fallback: "no_image.jpg", size: "450x450" %></div>
+    <div class="mb-5 py-5"><%= image_tag @post.get_image(450, 450), class: "img-fluid rounded align-self-center" %><%#= attachment_image_tag @post, :image, class: "img-fluid rounded align-self-center", fallback: "no_image.jpg", size: "450x450" %></div>
     <!--<div id=map></div>-->
   </div>
 

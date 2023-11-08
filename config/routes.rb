@@ -16,11 +16,8 @@ Rails.application.routes.draw do
     get '/about' => 'homes#about', as: "about"
     get "search_tag" => "posts#search_tag"
 
-    # resourcesで定義するとURIが「users/:id」となりdeviseと競合するためURIを「user/:id」で定義
-    get "user/:id" => "users#show", as: "user"
-    get "user/:id/edit" => "users#edit", as: "edit_user"
-
-    # show
+    # URIが「users/:id」となりdeviseと競合するためpathオプションを用いてURIを「user/:id」で定義
+    resources :users, only: [:index, :show, :edit, :update], path: "user"
     resources :posts
   end
 

@@ -17,7 +17,7 @@
       <div class="card-link my-3">
         <div class="card my-3 mx-2">
           <%= link_to post_path(post), style: "color: black;" do %>
-            <%= image_tag 'sample-author1.jpg', width: '100%', height: '100%', class: "card-img-top" %>
+            <%= image_tag post.get_image(250, 250), width: '100%', height: '100%', class: "card-img-top" %>
             <%#= attachment_image_tag post, :image, fallback: "no_image.jpg", size: "250x250", class: "card-img-top" %>
             <div class="card-body">
               <h5 class="card-title"><%= post.place %></h5>
@@ -43,4 +43,9 @@
         </div>
     </div>
   <% end %>
+</div>
+
+<div class="row my-3">
+  <div class="col-2 col-md-4 col-lg-5"></div>
+  <div class="col-8 col-md-4"><%= paginate @posts %></div>
 </div>

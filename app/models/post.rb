@@ -2,7 +2,7 @@ class Post < ApplicationRecord
 
   has_one_attached :image
   belongs_to :user
-  
+
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy
 
@@ -33,11 +33,10 @@ class Post < ApplicationRecord
   # 投稿時画像が無い場合no_image.jpgを表示するメソッド ===========================
   def get_image(width, height)
     unless image.attached?
-      file_path = Rails.root.join('app/assets/images/no_image.jpg')
+      file_path = Rails.root.join('app/assets/images/post_no_image.jpg')
       image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
     end
-      'no_image.jpg'
-      image.variant(resize_to_limit: [width, height]).processed
+      image.variant(resize_to_fill: [width, height]).processed
   end
   # ==============================================================================
 

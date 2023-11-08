@@ -18,7 +18,7 @@ class Users::PostsController < ApplicationController
   end
 
   def index
-    @posts = Post.all
+    @posts = Post.all.order(created_at: :desc).page(params[:page]).per(12)
     @tag_list = Tag.all
   end
 
@@ -31,6 +31,19 @@ class Users::PostsController < ApplicationController
   end
 
   def edit
+    @post = Post.find(params[:id])
+    if @post.user != current_user
+      redirect_to posts_path
+    end
+  end
+
+  def update
+    @post = Post.find(params[:id])
+    if @post.update(post_params)
+      redirect_to post_path(@post), notice: "投稿の編集が完了しました"
+    else
+      render "edit"
+    end
   end
 
   def destroy

@@ -1,2 +1,67 @@
-<h1>Users::Posts#edit</h1>
-<p>Find me in app/views/users/posts/edit.html.erb</p>
+<div class="row">
+  <h2 class="ch">投稿編集フォーム</h2>
+</div>
+
+<%= form_with model: @post do |f| %>
+  <div class="row">
+    <table class="col-10 mx-auto table">
+
+      <tr class="form-group">
+        <td class="align-middle text-right"><h4>画像</h4></td>
+        <td><%= f.file_field :image, accept: "image/*" %></td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td class="align-middle text-right"><label for="place"><h4>スポット名</h4></label></td>
+        <td colspan="2"><%= f.text_field :place, id: "place", placeholder: "〇〇公園", class: "form-control place" %></td>
+      </tr>
+
+      <tr>
+        <td class="align-middle text-right"><label for="address"><h4>住所</h4></label></td>
+        <td colspan="2"><%= f.text_field :address, id: "address", placeholder: "〇〇県〇〇市1-1-1", class: "form-control address" %></td>
+      </tr>
+
+      <tr>
+        <td class="align-middle text-right"><label for="caption"><h4>説明</h4></label></td>
+        <td colspan="2"><%= f.text_area :caption, id: "caption", placeholder: "説明文を入力", class: "form-control caption", rows: 4 %></td>
+      </tr>
+
+      <tr>
+        <td class="align-middle text-right"><label for="tag"><h4>タグ</h4></label></td>
+        <td colspan="2"><%= f.text_field :tag, id: "tag", placeholder: "キャンプ,釣り,スキー (半角「,」で区切ると複数タグ付け可能)", class: "form-control address" %></td>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td colspan="2", class="row">
+          <div class="col-6">
+            <%= f.submit '投稿', class: "btn btn-success btn-block btn-lg" %>
+          </div>
+        </td>
+      </tr>
+    </table>
+
+  </div>
+<% end %>
+
+<!--<script>-->
+
+<!--  function initMap(){-->
+<!--    let geocoder = new google.maps.Geocoder()-->
+<!--    $('.form-address').blur(function () {-->
+<!--      let address = $(this).val();-->
+<!--      geocoder.geocode( { 'address': address }, function(results, status) {-->
+<!--        if (status == 'OK') {-->
+<!--          let location = results[0].geometry.location;-->
+<!--          $('.form-latitude').val(location.lat());-->
+<!--           $('.form-longitude').val(location.lng());-->
+<!--        } else {-->
+<!--          alert('該当する結果がありませんでした：' + status);-->
+<!--        }-->
+<!--      });-->
+<!--      console.log(address)-->
+<!--    });-->
+<!--  }-->
+<!--</script>-->
+<!--<script src="https://maps.googleapis.com/maps/api/js?key=<%#= ENV['G_KEY'] %>&callback=initMap" async defer></script>-->
