@@ -21,7 +21,7 @@
         <td style="width: 30%">名前</td>
         <td style="width: 70%"><%= @user.name %></td>
       </tr>
-      
+
       <% if @user.id == current_user.id %>
         <tr>
           <td style="width: 30%">メールアドレス</td>
@@ -31,7 +31,7 @@
 
       <tr>
         <td style="width: 30%">自己紹介</td>
-        <td style="width: 70%"><%#= @user.introduction %></td>
+        <td style="width: 70%"><%= @user.introduction %></td>
       </tr>
 
       <tr>
@@ -51,12 +51,12 @@
 
 <div class="row">
   <div class="col-md-10 offset-md-1 col-md-1 my-2">
-    <h4 class="my-2">投稿一覧</h4>
-      <table class="table my-5">
+    <h4 class="my-1">投稿一覧</h4>
+      <table class="table my-3">
 
         <thead class="user-post-thead">
           <tr>
-            <th></th>
+            <th style="width: 150px">投稿写真</th>
             <th>スポット名</th>
             <th>住所</th>
             <th></th>
@@ -67,9 +67,10 @@
         <% @posts.each do |post| %>
           <tbody>
              <tr>
-                <td><%= link_to post_path(post) do %>
-                      <%#= image_tag post.get_image, fallback: "no_image.jpg", class: "post-image" %>
-                    <% end %>
+                <td>
+                  <%= link_to post_path(post) do %>
+                    <%= image_tag post.get_image(100, 100), class: "post-image" %>
+                  <% end %>
                 </td>
                 <td><%= link_to post.place, post_path(post) %></td>
                 <td><%= post.address %></td>

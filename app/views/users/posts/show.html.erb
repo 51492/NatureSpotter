@@ -39,7 +39,7 @@
             <td style="width: 70%"><%= @post.created_at.strftime('%Y/%m/%d %H:%M') %></td>
           </tr>
 
-          <% if @user.id == current_user.id %>
+          <% if @user == current_user %>
             <tr>
               <td style="width: 40%"><%= link_to "投稿編集", edit_post_path(@post), class: "btn btn-success" %></td>
               <td style="width: 60%"><%= link_to "投稿削除", post_path(@post), method: :delete,class: "btn btn-danger", data: { confirm: "本当に投稿を削除しますか？" } %></td>
