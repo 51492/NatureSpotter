@@ -6,10 +6,9 @@ Rails.application.routes.draw do
 
 
   # 会員側 =======================================================================
-  namespace :users do
-    resources :posts, only: [:show]
-    resources :users, only: [:show, :edit]
-  end
+  # namespace :users do
+  #   resources :posts, only: [:show]
+  # end
 
   scope module: :users do
     root :to => "homes#top"
@@ -17,8 +16,12 @@ Rails.application.routes.draw do
     get '/about' => 'homes#about', as: "about"
     get "search_tag" => "posts#search_tag"
 
-    # resources :users, only: [:show, :edit]
-    resources :posts, except: [:show]
+    # resourcesで定義するとURIが「users/:id」となりdeviseと競合するためURIを「user/:id」で定義
+    get "user/:id" => "users#show", as: "user"
+    get "user/:id/edit" => "users#edit", as: "edit_user"
+
+    # show
+    resources :posts
   end
 
   devise_for :users, controllers: {

@@ -112,7 +112,7 @@ ActiveRecord::Schema.define(version: 2023_11_05_163057) do
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.boolean "is_member", default: false
+    t.boolean "is_withdrawal", default: false
     t.float "post_latitude"
     t.float "post_longitude"
     t.string "reset_password_token"

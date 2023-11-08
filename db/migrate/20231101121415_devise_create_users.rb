@@ -8,7 +8,7 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
       t.string :encrypted_password, null: false, default: ""
 
       # 退会ステータスのカラム追加
-      t.boolean :is_member, default: false
+      t.boolean :is_withdrawal, default: false
 
       # 現在地情報のためのカラム追加
       t.float :post_latitude # 緯度
