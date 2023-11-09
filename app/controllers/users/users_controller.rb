@@ -21,6 +21,11 @@ class Users::UsersController < ApplicationController
       render :edit
     end
   end
+  
+  def index
+    @users = User.all.order(created_at: :desc).page(params[:page]).per(10)
+  end
+  # 退会ステータス実装後、.allを.where(is_deleted: false)に変更
 
   private
 

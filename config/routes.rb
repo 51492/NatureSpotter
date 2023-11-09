@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  
 
   # 管理者側 =====================================================================
   devise_for :admins
@@ -15,10 +16,11 @@ Rails.application.routes.draw do
     # get '/NatureSpotter' => 'users/homes#top', as: "top"
     get '/about' => 'homes#about', as: "about"
     get "search_tag" => "posts#search_tag"
+    get "search" => "searches#search"
 
     # URIが「users/:id」となりdeviseと競合するためpathオプションを用いてURIを「user/:id」で定義
     resources :users, only: [:index, :show, :edit, :update], path: "user" do
-      # フォローのルートをusersのルートにネストすることで特定のユーザーに関するフォロー情報を得られる
+      # フォローのルートをusersのルートにネストすることでURIにuser_idを持たせ、特定のユーザーに関するフォロー情報を得られる
       resource :relationships, only: [:create, :destroy]
       get "followings" => "relationships#followings", as: "followings"
       get "followers" => "relationships#followers", as: "followers"

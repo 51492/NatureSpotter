@@ -1,0 +1,23 @@
+<!--users/relationshps/followers.htmls.erb,users/relationshps/followings.htmls.erbのパーシャル-->
+<% if users.exists? %>
+  <table class="table table-hover">
+    <tbody>
+      <% users.each do |user| %>
+        <tr>
+          <td></td>
+          <td><%= image_tag user.get_profile_image(100, 100), class: "rounded-circle" %></td>
+          <td><%= user.name %></td>
+          <td>フォロー数:<%= user.followings.count%></td>
+          <td>フォロワー数:<%= user.followers.count%></td>
+          <td><%= link_to"user詳細",user_path(user) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <div class="row">
+    <div class="col-12">
+      ユーザーはいません
+    </div>
+  </div>
+<% end %>

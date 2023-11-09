@@ -47,6 +47,22 @@ class Post < ApplicationRecord
     likes.exists?(user_id: user.id) # likesテーブルのuser_idカラムに引数user.idと一致するものはあるか？
   end
   # ==============================================================================
+  
+  # 検索関連 =====================================================================
+  def self.looks(method, word)
+    if method == "perfect_match"
+      @post = Post.where("place LIKE?", "#{word}")
+    elsif method == "forward_match"
+      @post = Post.where("place LIKE?","#{word}%")
+    elsif method == "backward_match"
+      @post = Post.where("place LIKE?","%#{word}")
+    elsif method == "partial_match"
+      @post = Post.where("place LIKE?","%#{word}%")
+    else
+      @post = Post.all
+    end
+  end
+  # ==============================================================================
 
 end
 
