@@ -9,7 +9,7 @@ class Users::UsersController < ApplicationController
   def edit
     @user = User.find(params[:id])
     if @user != current_user
-      redirect_to users_path
+      redirect_to request.referer
     end
   end
   

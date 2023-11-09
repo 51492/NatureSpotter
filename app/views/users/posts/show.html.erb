@@ -47,25 +47,25 @@
           <% end %>
         </table>
 
-        <!--いいね機能-->
-        <!--<div id="like-btn<%#= @post.id %>">-->
-        <!--  <%#= render 'user/likes/like_btn', post: @post %>-->
-        <!--</div>-->
-
         <!--タグリスト-->
         <% @taggings.each do |list| %>
         <i class="fa-sharp fa-solid fa-tag"></i>
           <%= link_to list.tag,search_tag_path(tag_id: list.id) %>
         <% end %>
 
+        <div class="like_btn">
+          <%= render "like", post: @post %>
+        </div>
+
+
         <!--コメント表示機能-->
-        <div class="comment_index">
+        <div class="comment_index mt-2 mb-1">
           <%= render 'comment_index', post: @post %>
         </div>
 
         <!--コメント投稿機能-->
         <% if user_signed_in? %>
-  
+
           <% if @current_user == nil %>
             <%= form_with(model:[@post, @comment], remote: true) do |f| %>
               <div class="form-group">
@@ -76,7 +76,7 @@
               </div>
             <% end %>
           <% end %>
-          
+
         <% end %>
 
         <!--通報機能-->

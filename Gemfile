@@ -67,6 +67,11 @@ gem "rename"
 # アプリ名変更の為に導入(outdoor_mapからNatureSpotterに変更)
 # 参考：https://autovice.jp/articles/38
 
+# ユーザー機能のgem
 gem "devise"
 
+# ページネーションのgem
 gem 'kaminari', '~> 1.2.1'
+
+# Ajaxを使うため
+gem 'jquery-rails'

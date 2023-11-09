@@ -5,13 +5,13 @@ class Post < ApplicationRecord
 
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :likes, dependent: :destroy
 
-  # タグ関係 =====================================================================
   # タグ機能のアソシエーション
   has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
 
-  # タグ保存のためのメソッド
+  # タグ保存のためのメソッド =====================================================
   def save_tags(tags)
     current_tags = self.tags.pluck(:tag) unless self.tags.nil? # self(クラス)のtagデータが存在していれば、タグの名前を配列としてすべて取得
     old_tags = current_tags - tags # 既存のタグから送られてきたタグを除いたタグ
@@ -29,6 +29,7 @@ class Post < ApplicationRecord
     end
   end
   # ==============================================================================
+  
 
   # 投稿時画像が無い場合no_image.jpgを表示するメソッド ===========================
   def get_image(width, height)
@@ -37,6 +38,13 @@ class Post < ApplicationRecord
       image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
     end
       image.variant(resize_to_fill: [width, height]).processed
+  end
+  # ==============================================================================
+  
+  
+  # 指定のユーザーが特定の投稿に対して既にいいねをしているか判断するメソッド =====
+  def liked_by?(user)
+    likes.exists?(user_id: user.id) # likesテーブルのuser_idカラムに引数user.idと一致するものはあるか？
   end
   # ==============================================================================
 

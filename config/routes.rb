@@ -19,9 +19,10 @@ Rails.application.routes.draw do
     # URIが「users/:id」となりdeviseと競合するためpathオプションを用いてURIを「user/:id」で定義
     resources :users, only: [:index, :show, :edit, :update], path: "user"
     
-    # コメントのルートをpostのルートにネストする
+    # コメントといいねのルートをpostのルートにネストする
     resources :posts, only: [:new, :create, :index, :show, :destroy] do
       resources :comments, only: [:create, :destroy] 
+      resource :likes, only: [:create, :destroy]
     end
   end
 
@@ -43,3 +44,9 @@ Rails.application.routes.draw do
 
 
 end
+
+
+# 以下参考
+
+  # 【Rails】いいね機能
+    # https://zenn.dev/ganmo3/articles/c071ba9aecaa51
