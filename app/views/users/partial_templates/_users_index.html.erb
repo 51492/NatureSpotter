@@ -1,0 +1,47 @@
+<div class="row">
+  <div class="col-10 offset-1">
+
+    <table class="table table-hover">
+      <tbody>
+        <% users.each do |user| %>
+
+          <tr>
+            <td style="width: 20%">
+              <%= link_to user_path(user) do %>
+                <%= image_tag user.get_profile_image(100, 100), class: "rounded-circle" %>
+              <% end %>
+            </td>
+
+            <td style="width: 30%">
+              <%= user.name %>
+            </td>
+
+            <td style="width: 30%">
+              投稿数 <%= user.posts.count %>
+            </td>
+
+            <td>
+              <% if user == current_user %> <!--表示してるユーザーが自分のとき-->
+                <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block" do %>
+                  <i class="fas fa-user-edit"></i>
+                <% end %>
+
+              <% elsif current_user.following?(user) %> <!--表示してるユーザーが自分以外で、そのユーザーをフォローしている状態のとき-->
+                <%= link_to user_relationships_path(user.id), method: :delete, class: "btn btn-outline-info btn-block" do %>
+                  <i class="fa-solid fa-user-minus"></i>
+                <% end %>
+
+              <% else %>  <!--表示してるユーザーが自分以外で、そのユーザーをフォローしてない状態のとき(上記二択以外のとき)-->
+                <%= link_to user_relationships_path(user.id), method: :post, class: "btn btn-outline-success btn-block" do %>
+                  <i class="fa-solid fa-user-plus"></i>
+                <% end %>
+
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+  </div>
+</div>

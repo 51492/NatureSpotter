@@ -7,10 +7,6 @@ Rails.application.routes.draw do
 
 
   # 会員側 =======================================================================
-  # namespace :users do
-  #   resources :posts, only: [:show]
-  # end
-
   scope module: :users do
     root :to => "homes#top"
     # get '/NatureSpotter' => 'users/homes#top', as: "top"

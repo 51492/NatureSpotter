@@ -43,19 +43,20 @@
         </table>
 
         <!--タグリスト-->
-        <% @taggings.each do |list| %>
-        <i class="fa-sharp fa-solid fa-tag"></i>
-          <%= link_to list.tag,search_tag_path(tag_id: list.id) %>
+        <% @tag_list.each do |list| %>
+          <i class="fa-sharp fa-solid fa-tag"></i>
+          <%= link_to list.tag, search_tag_path(tag_id: list.id) %>
         <% end %>
 
+        <!--いいねボタン-->
         <div class="like_btn">
-          <%= render "like", post: @post %>
+          <%= render "users/partial_templates/like", post: @post %>
         </div>
 
 
         <!--コメント表示機能-->
         <div class="comment_index mt-2 mb-1">
-          <%= render 'comment_index', post: @post %>
+          <%= render 'users/partial_templates/comment_index', post: @post %>
         </div>
 
         <!--コメント投稿機能-->
