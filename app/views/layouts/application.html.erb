@@ -55,8 +55,10 @@
 
     <main>
       <div class="container-fluid">
-        <% if notice != nil %>
-          <p class="alert alert-success" role="alert"><%= notice %></p>
+        <% if flash[:notice] %>
+          <p class="alert alert-success"><%= notice %></p>
+        <% elsif flash[:alert] %>
+          <p class="alert alert-danger"><%= alert %></p>
         <% end %>
 
         <%= yield %>

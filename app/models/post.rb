@@ -13,7 +13,7 @@ class Post < ApplicationRecord
 
   # タグ保存のためのメソッド =====================================================
   def save_tags(tags)
-    current_tags = self.tags.pluck(:tag) unless self.tags.nil? # self(クラス)のtagデータが存在していれば、タグの名前を配列としてすべて取得
+    current_tags = self.tags.pluck(:tag) unless self.tags.nil? # self(クラス)のtagデータが存在していれば、タグを配列としてすべて取得
     old_tags = current_tags - tags # 既存のタグから送られてきたタグを除いたタグ
     new_tags = tags - current_tags # 送られてきたタグから既存のタグを除いたタグ
 

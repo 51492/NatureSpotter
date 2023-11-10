@@ -37,7 +37,7 @@ class User < ApplicationRecord
   def self.guest
     find_or_create_by(email: "guest@example.com") do |user|
       user.password = SecureRandom.urlsafe_base64
-      user.name = "Guest"
+      user.name = "GuestUser"
       # user.confirmed_at = Time.now # メール確認機能用の記述
     end
   end

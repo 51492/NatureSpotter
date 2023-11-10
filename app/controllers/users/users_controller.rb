@@ -1,5 +1,6 @@
 class Users::UsersController < ApplicationController
   before_action :authenticate_user!
+  before_action :check_guest, only: %i[update destroy]
 
   def show
     @user = User.find(params[:id])
@@ -31,5 +32,11 @@ class Users::UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:email, :name, :profile_image, :is_withdrawal)
+  end
+  
+  def check_guest
+    if current_user.email == 'guest@example.com'
+      redirect_to root_path, alert: 'ゲストユーザーの編集・削除はできません。'
+    end
   end
 end

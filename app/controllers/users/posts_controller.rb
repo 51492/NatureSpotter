@@ -21,7 +21,7 @@ class Users::PostsController < ApplicationController
 
   def index
     @posts = Post.all.order(created_at: :desc).page(params[:page]).per(12)
-    @tag_list = Tag.all
+    @tag_list = tag_top5 # private参照
   end
 
   def show
@@ -54,18 +54,26 @@ class Users::PostsController < ApplicationController
   end
 
   def search_tag
-    #検索結果画面でもタグ一覧表示
-    @tag_list = Tag.all
-    　#検索されたタグを受け取る
+    @tag_list = tag_top5 # private参照
     @tag = Tag.find(params[:tag_id])
-    　#検索されたタグに紐づく投稿を表示
-    @posts = @tag.posts
+    @posts = @tag.posts.all.order(created_at: :desc).page(params[:page]).per(12)
   end
+
 
   private
 
   def post_params
     params.require(:post).permit(:image, :place, :address, :caption)
   end
+  
+  # tag_listの表示において、tagの数順でTop5を表示するためのメソッド
+  def tag_top5
+    Tag.find(Tagging.group(:tag_id).order('count(post_id) desc').limit(5).pluck(:tag_id))
+  end
 
 end
+
+# 以下参考
+
+  # [Rails]タグ一覧での投稿数が多い順に並べる
+    # https://qiita.com/nmwkhl/items/daa49562b9c7d9d7e0b5

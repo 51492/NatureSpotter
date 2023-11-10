@@ -1,19 +1,13 @@
 <div class="row">
   <div class="col-12 col-md-8 mx-2 py-4">
-    <h2 class="ch">投稿一覧</h2>
+    <h2 class="ch">タグが<%=@tag.tag%>の投稿一覧</h2>
   </div>
 </div>
 
 <!--タグリスト-->
 <%= render "users/partial_templates/tag_list_index", tag_list: @tag_list %>
 
-<!--<%#= form_tag({controller:"posts",action:"index"}, method: :get) do %>-->
-<!--    <%# Tag.all.each do |t| %>-->
-<!--        <li><%#= check_box :tag_ids, t.tag %><%#= t.tag %></li>-->
-<!--    <%# end %>-->
-<!--    <%#= submit_tag '検索' %>-->
-<!--<%# end %>-->
-
+<!--投稿一覧-->
 <%= render "users/partial_templates/posts_index", posts: @posts %>
 
 <div class="row my-3">
