@@ -58,6 +58,11 @@
         <td style="width: 30%">フォロワー</td>
         <td style="width: 70%"><%= link_to @user.followers.count, user_followers_path(user_id: @user.id) %></td>
       </tr>
+      
+      <tr>
+        <td style="width: 30%">いいねした投稿</td>
+        <td style="width: 70%"><%= link_to @user.likes.count, likes_user_path(@user) %></td>
+      </tr>
 
     </table>
 

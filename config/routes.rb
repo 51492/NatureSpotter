@@ -16,10 +16,17 @@ Rails.application.routes.draw do
 
     # URIが「users/:id」となりdeviseと競合するためpathオプションを用いてURIを「user/:id」で定義
     resources :users, only: [:index, :show, :edit, :update], path: "user" do
-      # フォローのルートをusersのルートにネストすることでURIにuser_idを持たせ、特定のユーザーに関するフォロー情報を得られる
+      
+      # フォロー関連をusersにネストすることでURIにuser_idを持たせ、特定のユーザーに関するフォロー情報を得られる
       resource :relationships, only: [:create, :destroy]
       get "followings" => "relationships#followings", as: "followings"
       get "followers" => "relationships#followers", as: "followers"
+      
+      # いいね一覧をusersにネストし、member doでidを持たせることで、どのユーザーがいいねしたのかをurlで判別できるようになる
+      member do
+        get :likes 
+      end
+
     end
     
     # コメントといいねのルートをpostのルートにネストする
