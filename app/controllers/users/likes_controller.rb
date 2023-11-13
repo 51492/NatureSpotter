@@ -1,10 +1,10 @@
 class Users::LikesController < ApplicationController
 
   def create
-    @post = Post.find(params[:post_id])
-    like = current_user.likes.new(post_id: @post.id)
-    like.save
-    # redirect_to request.referer ←redirect先を消すことでコントローラー側がjsファイルを探す
+      @post = Post.find(params[:post_id])
+      like = current_user.likes.new(post_id: @post.id)
+      like.save
+      # redirect_to request.referer ←redirect先を消すことでコントローラー側がjsファイルを探す
   end
 
   def destroy

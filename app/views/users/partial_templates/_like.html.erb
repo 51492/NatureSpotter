@@ -1,13 +1,23 @@
-<% if post.liked_by?(current_user) %>
+<% if user_signed_in? %>
+  <% if post.liked_by?(current_user) %>
 
-  <%= link_to post_likes_path(post), method: :delete, remote: true, data: {"turbolinks" => false} do %>
-    <i class="fa-solid fa-heart" aria-hidden="true" style="color: black;"></i>
-    <span style="color: black;"><%= post.likes.count %></span>
+    <%= link_to post_likes_path(post), method: :delete, remote: true, data: {"turbolinks" => false} do %>
+      <i class="fa-solid fa-heart" aria-hidden="true" style="color: black;"></i>
+      <span style="color: black;"><%= post.likes.count %></span>
+    <% end %>
+
+  <% else %>
+
+    <%= link_to post_likes_path(post), method: :post, remote: true, data: {"turbolinks" => false} do %>
+      <i class="fa-regular fa-heart" aria-hidden="true" style="color: black;"></i>
+      <span style="color: black;"><%= post.likes.count %></span>
+    <% end %>
+
   <% end %>
 
 <% else %>
-
-  <%= link_to post_likes_path(post), method: :post, remote: true, data: {"turbolinks" => false} do %>
+  <!--非同期通信の記述remote: tureを消して、ログインページにリダイレクトするようにする-->
+  <%= link_to post_likes_path(post), method: :post, data: {"turbolinks" => false} do %>
     <i class="fa-regular fa-heart" aria-hidden="true" style="color: black;"></i>
     <span style="color: black;"><%= post.likes.count %></span>
   <% end %>

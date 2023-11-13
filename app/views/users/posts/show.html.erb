@@ -55,23 +55,15 @@
 
 
         <!--コメント表示機能-->
-        <div class="comment_index mt-2 mb-1">
+        <div class="comment_index mt-2 mb-1", id="comment_index">
           <%= render 'users/partial_templates/comment_index', post: @post %>
         </div>
 
         <!--コメント投稿機能-->
         <% if user_signed_in? %>
-
-          <% if @current_user == nil %>
-            <%= form_with(model:[@post, @comment], remote: true) do |f| %>
-              <div class="form-group">
-                <%= f.text_area :comment, rows:'3',placeholder: "コメントを入力", class: "form-control text_area" %>
-              </div>
-              <div class="form-group py-3">
-                <%= f.submit "コメントする", class: "btn btn-success btn-sm" %>
-              </div>
-            <% end %>
-          <% end %>
+          <div id="comment_form">
+            <%= render 'users/partial_templates/comment_form', {post: @post, comment: @comment} %>
+          </div>
 
         <% end %>
 
