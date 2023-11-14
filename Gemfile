@@ -7,8 +7,11 @@ ruby '3.1.2'
 gem 'rails', '~> 6.1.7', '>= 6.1.7.6'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', '~> 1.4'
+
 # Use Puma as the app server
-gem 'puma', '~> 5.0'
+# gem 'puma', '~> 5.0'
+gem 'puma', '~> 3.11'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
@@ -60,6 +63,10 @@ gem "dotenv-rails"
 # GmapのAPIキーを使用するためGitHubに上げないよう環境変数を管理するgemを導入
 # 自身で作成したアプリケーションの直下に.envファイルを作成することで、パスワードなどネット上に公開させたくない情報を扱い、自動で読み込むことが可能になる
 
+group :production do
+  gem 'mysql2'
+end
+
 gem "geocoder"
 # geocoding(住所や地名から位置座標を取得したり、その逆を行ったり)ができるgemを導入
 
@@ -75,3 +82,7 @@ gem 'kaminari', '~> 1.2.1'
 
 # Ajaxを使うため
 gem 'jquery-rails'
+
+gem "net-smtp"
+gem "net-pop"
+gem "net-imap"
