@@ -11,8 +11,8 @@ class DeviseCreateUsers < ActiveRecord::Migration[6.1]
       t.boolean :is_withdrawal, default: false
 
       # 現在地情報のためのカラム追加
-      t.float :post_latitude # 緯度
-      t.float :post_longitude # 経度
+      t.float :user_latitude # 緯度
+      t.float :user_longitude # 経度
 
       ## Recoverable
       t.string   :reset_password_token

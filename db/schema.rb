@@ -113,8 +113,8 @@ ActiveRecord::Schema.define(version: 2023_11_05_163057) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.boolean "is_withdrawal", default: false
-    t.float "post_latitude"
-    t.float "post_longitude"
+    t.float "user_latitude"
+    t.float "user_longitude"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"

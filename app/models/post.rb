@@ -64,6 +64,11 @@ class Post < ApplicationRecord
   end
   # ==============================================================================
 
+
+  # geocoder =====================================================================
+  geocoded_by :address_city
+  after_validation :geocode, if: :address_city_changed?
+  # ==============================================================================
 end
 
 
@@ -71,3 +76,6 @@ end
 
   # Rails タグ付け機能
     # https://zenn.dev/goldsaya/articles/625bdf837c1c68
+  
+  #【Ruby on rails6】Google Map APIをアプリケーションに導入する
+    # https://naskanoheya.com/catch-up/g-map/

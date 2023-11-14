@@ -1,1 +1,2 @@
-$("#like_btn_<%= @post.id %>").html("<%= j(render "users/partial_templates/like", post: @post) %>");
+$("#comment_index").html("<%= j(render "users/partial_templates/comment_index", post: @post) %>");
+$('#comment_count').html("<%= @post.comments.count %>")

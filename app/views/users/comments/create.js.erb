@@ -1,4 +1,5 @@
 $("#comment_index").html("<%= j(render "users/partial_templates/comment_index", post: @post) %>");
+$('#comment_count').html("<%= @post.comments.count %>")
 
 <!--フォームを送信したあとにフォームの値を空にする-->
 $("textarea").val('');

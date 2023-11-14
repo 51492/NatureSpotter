@@ -78,6 +78,12 @@ class User < ApplicationRecord
   end
   # ==============================================================================
 
+
+  # geocoder =====================================================================
+  geocoded_by :address_city
+  after_validation :geocode, if: :address_city_changed?
+  # ==============================================================================
+
 end
 
 
@@ -88,3 +94,7 @@ end
 
   # 【Rails】フォロー・フォロワー機能
     # https://zenn.dev/ganmo3/articles/a3633e8f3209da
+    
+  
+  #【Ruby on rails6】Google Map APIをアプリケーションに導入する
+    # https://naskanoheya.com/catch-up/g-map
