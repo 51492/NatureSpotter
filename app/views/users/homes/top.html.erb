@@ -33,18 +33,32 @@
       zoom: 12,
     });
 
-    marker = new google.maps.Marker({
-      position:  {lat: 35.6764225, lng:139.650027},
-      map: map,
-      icon: {
-        url: "<%= asset_path('mapicon.png') %>",
-        size: new google.maps.Size(30, 35), // 画像の初期サイズを指定（適宜変更してください）
-        scaledSize: new google.maps.Size(30, 35) // 画像の表示サイズを指定（適宜変更してください）
-      },
-    });
-    
-    marker.addListener('click', function() {
-      window.location.href = "リンク先のURL";
+
+    // marker = new google.maps.Marker({
+    //   position:  {lat: 35.6764225, lng:139.650027},
+    //   map: map,
+    //   icon: {
+    //     url: "<%#= asset_path('mapicon.png') %>",
+    //     size: new google.maps.Size(30, 35), // 画像の初期サイズを指定
+    //     scaledSize: new google.maps.Size(30, 35) // 画像の表示サイズを指定
+    //   },
+    // });
+
+    var posts = gon.post; // JSON文字列を配列に変換
+    post.forEach(function(post) {
+      var marker = new google.maps.Marker({
+        position: {lat: post.post_latitude, lng: post.post_longitude},
+        map: map,
+        icon: {
+          url: "<%= asset_path('mapicon.png') %>",
+          size: new google.maps.Size(30, 35), // 画像の初期サイズを指定
+          scaledSize: new google.maps.Size(30, 35) // 画像の表示サイズを指定
+        },
+      });
+
+      marker.addListener('click', function() {
+        window.location.href = "リンク先のURL";
+      });
     });
   }
 
@@ -76,7 +90,7 @@
         alert('該当する結果がありませんでした：' + status);
       }
     });
-    
+
     marker.addListener('click', function() {
       window.location.href = "リンク先のURL";
     });

@@ -13,7 +13,7 @@ class Users::UsersController < ApplicationController
       redirect_to request.referer
     end
   end
-  
+
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
@@ -22,17 +22,17 @@ class Users::UsersController < ApplicationController
       render :edit
     end
   end
-  
+
   def index
     @users = User.all.order(created_at: :desc).page(params[:page]).per(10)
   end
   # 退会ステータス実装後、.allを.where(is_deleted: false)に変更
-  
+
   def likes
     @user = User.find(params[:id])
     likes = Like.where(user_id: @user.id).pluck(:post_id)
     @like_posts = Post.find(likes)
-    @post = Post.find(params[:id])
+    # @post = Post.find(params[:id])
   end
 
   private
@@ -40,7 +40,7 @@ class Users::UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:email, :name, :profile_image, :is_withdrawal)
   end
-  
+
   def check_guest
     if current_user.email == 'guest@example.com'
       redirect_to root_path, alert: 'ゲストユーザーの編集・削除はできません。'
