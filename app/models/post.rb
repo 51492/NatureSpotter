@@ -29,7 +29,7 @@ class Post < ApplicationRecord
     end
   end
   # ==============================================================================
-  
+
 
   # 投稿時画像が無い場合no_image.jpgを表示するメソッド ===========================
   def get_image(width, height)
@@ -40,14 +40,14 @@ class Post < ApplicationRecord
       image.variant(resize_to_fill: [width, height]).processed
   end
   # ==============================================================================
-  
-  
+
+
   # 指定のユーザーが特定の投稿に対して既にいいねをしているか判断するメソッド =====
   def liked_by?(user)
     likes.exists?(user_id: user.id) # likesテーブルのuser_idカラムに引数user.idと一致するものはあるか？
   end
   # ==============================================================================
-  
+
   # 検索関連 =====================================================================
   def self.looks(method, word)
     if method == "perfect_match"
@@ -66,7 +66,8 @@ class Post < ApplicationRecord
 
 
   # geocoder =====================================================================
-  geocoded_by :address # addressカラムを基準に緯度経度を算出する
+  geocoded_by :address, latitude: :post_latitude, longitude: :post_longitude
+  # addressカラムを基準に緯度経度を算出し、対応するカラムに渡す
   after_validation :geocode, if: :address_changed? # address変更時に緯度経度も更新
   # ==============================================================================
 end
@@ -76,6 +77,6 @@ end
 
   # Rails タグ付け機能
     # https://zenn.dev/goldsaya/articles/625bdf837c1c68
-  
+
   #【Ruby on rails6】Google Map APIをアプリケーションに導入する
     # https://naskanoheya.com/catch-up/g-map/

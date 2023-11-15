@@ -13,7 +13,7 @@ class Users::PostsController < ApplicationController
 
     if @post.save
       @post.save_tags(tag_list)
-      redirect_to posts_path, notice:"投稿しました"
+      redirect_to post_path(@post), notice:"投稿しました"
     else
       render :new
     end
