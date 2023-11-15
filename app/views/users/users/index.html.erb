@@ -4,14 +4,6 @@
     <h2>User一覧</h2>
   </div>
   
-  <!--<div class="col-lg-3 offset-lg-4">-->
-  <!--  <%#= form_with(url: search_users_path,method: :get, local: true, class: "search-form") do |form| %>-->
-  <!--    <%#= form.text_field :keyword, placeholder: "userが飼っている犬種を入力", class: "search-input form-control" %>-->
-  <!--    <%#= form.select :dog_size, Dog.dog_sizes.map {|k, v| [k, v]}, {include_blank: 'sizeすべて'} %>-->
-  <!--    <%#= form.submit "検索", class: "btn search-btn btn-secondary btn-sm" %>-->
-  <!--  <%# end %>-->
-  <!--</div>-->
-  
 </div>
 
 <%= render "users/partial_templates/users_index", users: @users %>

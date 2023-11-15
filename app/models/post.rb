@@ -66,8 +66,8 @@ class Post < ApplicationRecord
 
 
   # geocoder =====================================================================
-  geocoded_by :address_city
-  after_validation :geocode, if: :address_city_changed?
+  geocoded_by :address # addressカラムを基準に緯度経度を算出する
+  after_validation :geocode, if: :address_changed? # address変更時に緯度経度も更新
   # ==============================================================================
 end
 

@@ -29,6 +29,7 @@ class Users::PostsController < ApplicationController
     @user = @post.user
     @comment = Comment.new
     @tag_list = @post.tags
+    gon.post = @post
   end
 
   def edit

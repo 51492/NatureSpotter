@@ -70,6 +70,9 @@ end
 gem "geocoder"
 # geocoding(住所や地名から位置座標を取得したり、その逆を行ったり)ができるgemを導入
 
+gem "gon"
+# コントローラーで定義したインスタンス変数をビューのJavaScript内で使用可能にする
+
 gem "rename"
 # アプリ名変更の為に導入(outdoor_mapからNatureSpotterに変更)
 # 参考：https://autovice.jp/articles/38
@@ -86,3 +89,7 @@ gem 'jquery-rails'
 gem "net-smtp"
 gem "net-pop"
 gem "net-imap"
+
+# slimを使う
+gem 'slim-rails'
+gem 'html2slim'

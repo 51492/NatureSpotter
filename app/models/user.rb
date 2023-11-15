@@ -80,8 +80,10 @@ class User < ApplicationRecord
 
 
   # geocoder =====================================================================
-  geocoded_by :address_city
-  after_validation :geocode, if: :address_city_changed?
+  # geocoded_by :address # addressカラムを基準に緯度経度を算出する
+  
+  # # after_validation :geocode, if: :address_changed?
+  # after_validation :geocode, if: :persisted?
   # ==============================================================================
 
 end

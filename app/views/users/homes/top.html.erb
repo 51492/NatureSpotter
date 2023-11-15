@@ -1,6 +1,6 @@
-<h2>gmap</h2>
+<h2>スポット検索</h2>
 
-<input id="address" type="textbox" value="GeekSalon">
+<input id="address" type="textbox" placeholder="東京">
 <input type="button" value="検索" onclick="codeAddress()">
 
 <div id="display">緯度経度が表示される、、、、！</div>
@@ -8,10 +8,15 @@
 <div id='map'></div>
 
 <style>
-#map {
-  height: 700px;
-  width: 100%;
-}
+  #map {
+    height: 700px;
+    width: 100%;
+  }
+
+  #map img {
+    max-width: 100%;
+    height: auto;
+  }
 </style>
 
 <script>
@@ -24,13 +29,22 @@
     geocoder = new google.maps.Geocoder()
 
     map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: 40.7828, lng:-73.9653},
+      center: {lat: 35.6764225, lng:139.650027},
       zoom: 12,
     });
 
     marker = new google.maps.Marker({
-      position:  {lat: 40.7828, lng:-73.9653},
-      map: map
+      position:  {lat: 35.6764225, lng:139.650027},
+      map: map,
+      icon: {
+        url: "<%= asset_path('mapicon.png') %>",
+        size: new google.maps.Size(30, 35), // 画像の初期サイズを指定（適宜変更してください）
+        scaledSize: new google.maps.Size(30, 35) // 画像の表示サイズを指定（適宜変更してください）
+      },
+    });
+    
+    marker.addListener('click', function() {
+      window.location.href = "リンク先のURL";
     });
   }
 
@@ -47,7 +61,12 @@
         map.setCenter(results[0].geometry.location);
         var marker = new google.maps.Marker({
             map: map,
-            position: results[0].geometry.location
+            position: results[0].geometry.location,
+            icon: {
+              url: "<%= asset_path('mapicon.png') %>",
+              size: new google.maps.Size(30, 35), // 画像の初期サイズを指定（適宜変更してください）
+              scaledSize: new google.maps.Size(30, 35) // 画像の表示サイズを指定（適宜変更してください）
+            },
         });
         display.textContent = "検索結果：" + results[ 0 ].geometry.location
         }
@@ -56,6 +75,10 @@
         //検索結果が何もなかった場合に表示
         alert('該当する結果がありませんでした：' + status);
       }
+    });
+    
+    marker.addListener('click', function() {
+      window.location.href = "リンク先のURL";
     });
   }
 </script>
