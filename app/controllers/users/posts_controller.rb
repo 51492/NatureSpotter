@@ -13,7 +13,7 @@ class Users::PostsController < ApplicationController
 
     if @post.save
       @post.save_tags(tag_list)
-      redirect_to post_path(@post), notice:"投稿しました"
+      redirect_to post_path(@post), notice:"投稿完了"
     else
       render :new
     end
@@ -41,8 +41,12 @@ class Users::PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
+    
+    tag_list = params[:post][:tag].split(",") # paramsで受け取った値を「,」で区切ってハッシュにする
+    
     if @post.update(post_params)
-      redirect_to post_path(@post), notice: "投稿の編集が完了しました"
+      @post.save_tags(tag_list)
+      redirect_to post_path(@post), notice: "投稿編集完了"
     else
       render "edit"
     end

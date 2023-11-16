@@ -1,0 +1,95 @@
+<div class="row">
+  <div class="col-sm-6 offset-sm-3 col-md-10 col-lg-3 offset-md-1 my-5">
+    <div class="row mt-3">
+      <%= image_tag @user.get_profile_image(250, 250), fallback: "no_image.jpg", class: "rounded-circle" %>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-md-5 col-lg-5 ml-lg-5 my-4">
+
+        <%= link_to edit_admins_user_path(@user), class: "btn btn-outline-secondary btn-block" do %>
+          <i class="fas fa-user-edit"></i>
+        <% end %>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-sm-6 offset-sm-4 col-md-8 col-lg-6 offset-md-1 my-5 pt-lg-3">
+
+    <table class="table">
+      <tr>
+        <td style="width: 30%">名前</td>
+        <td style="width: 70%"><%= @user.name %></td>
+      </tr>
+
+      <tr>
+        <td style="width: 30%">メールアドレス</td>
+        <td style="width: 70%"><%= @user.email %></td>
+      </tr>
+
+      <tr>
+        <td style="width: 30%">自己紹介</td>
+        <td style="width: 70%"><%= @user.introduction %></td>
+      </tr>
+
+      <tr>
+        <td style="width: 30%">フォロー</td>
+        <td style="width: 70%"><%= link_to @user.followings.count, user_followings_path(user_id: @user.id) %></td>
+      </tr>
+
+      <tr>
+        <td style="width: 30%">フォロワー</td>
+        <td style="width: 70%"><%= link_to @user.followers.count, user_followers_path(user_id: @user.id) %></td>
+      </tr>
+
+      <tr>
+        <td style="width: 30%">いいねした投稿</td>
+        <td style="width: 70%"><%= link_to @user.likes.count, likes_user_path(@user) %></td>
+      </tr>
+
+    </table>
+
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-10 offset-md-1 col-md-1 my-2">
+    <h4 class="my-1">投稿一覧</h4>
+      <table class="table my-3">
+
+        <thead class="user-post-thead">
+          <tr>
+            <th style="width: 150px">投稿写真</th>
+            <th>スポット名</th>
+            <th>住所</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <% @posts.each do |post| %>
+          <tbody>
+             <tr>
+                <td>
+                  <%= link_to post_path(post) do %>
+                    <%= image_tag post.get_image(100, 100), class: "post-image" %>
+                  <% end %>
+                </td>
+                <td><%= link_to post.place, post_path(post) %></td>
+                <td><%= post.address %></td>
+                <td></td>
+                <td></td>
+            </tr>
+          </tbody>
+        <% end %>
+
+      </table>
+    </div>
+  </div>
+
+<div class="row my-3">
+  <div class="col-4 col-md-4 col-lg-5"></div>
+  <div class="col-4 col-md-4"><%= paginate @posts %></div>
+</div>

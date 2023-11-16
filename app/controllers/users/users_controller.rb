@@ -38,7 +38,7 @@ class Users::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :name, :profile_image, :is_withdrawal)
+    params.require(:user).permit(:email, :name, :profile_image, :is_withdrawal, :introduction)
   end
 
   def check_guest

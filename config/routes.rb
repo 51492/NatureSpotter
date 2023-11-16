@@ -2,7 +2,16 @@ Rails.application.routes.draw do
   
 
   # 管理者側 =====================================================================
-  devise_for :admins
+  devise_for :admins, controllers: {
+    sessions:      'admins/sessions',
+    passwords:     'admins/passwords',
+    registrations: 'admins/registrations'
+  }
+  
+  namespace :admins do
+    resources :users
+    resources :posts
+  end
   # ==============================================================================
 
 
@@ -30,20 +39,18 @@ Rails.application.routes.draw do
     end
     
     # コメントといいねのルートをpostのルートにネストする
-    resources :posts, only: [:new, :create, :index, :show, :edit, :update, :destroy] do
+    resources :posts do
       resources :comments, only: [:create, :destroy] 
       resource :likes, only: [:create, :destroy]
     end
   end
 
   devise_for :users, controllers: {
-
+    sessions: "users/sessions",
     # ゲストアカウントへのdestroyメソッドを無効とするため、deviseのregistrations_controllerの参照先としてusers直下に作成したcontrollerも含める
     registrations: "users/registrations",
-
     # ゲストパスワードへのupdateメソッドを無効とするため、deviseのpasswords_controllerの参照先としてusers直下に作成したcontrollerも含める
     passwords: "users/passwords"
-
   }
 
   # ゲストログインのアクションに繋がるルートをdeviseのsessionsコントローラーに追加

@@ -1,0 +1,71 @@
+<%= stylesheet_link_tag 'admins/users', media: 'all' %>
+
+<div class="row">
+  <div class="col-12 col-md-8 mx-auto py-5">
+    <h1>プロフィール編集</h1>
+      <%= render 'layouts/errors', obj: @user %>
+
+      <%= form_with model: @user, local:true do |f| %>
+        <div class="form-group my-5">
+          <h4>プロフィール画像</h4>
+          <%= f.file_field :profile_image, placeholder: "プロフィール画像", accept: "image/*" %>
+        </div>
+
+        <div class="form-group my-3">
+          <h4>名前</h4>
+          <%= f.text_field :name, class: "form-control" %>
+        </div>
+
+        <div class="form-group my-3">
+          <h4>email</h4>
+          <%= f.email_field :email, class: "form-control" %>
+        </div>
+
+        <div class="form-group my-3">
+          <h4>自己紹介</h4>
+          <%= f.text_field :introduction, class: "form-control" %>
+        </div>
+
+        <div class="form-group my-3 toggle_switch">
+          <h4>退会ステータス</h4>
+
+          <label for="switch" class="switch_label">
+            <div class="switch">
+              <%= f.check_box :is_withdrawal, class: "switch-checkbox", id: "switch" %>
+              <!--<input type="checkbox" id="switch" />-->
+              <div class="circle"></div>
+              <div class="base"></div>
+            </div>
+            <span class="title">入会</span>
+          </label>
+        </div>
+
+
+
+        <div class="form-group my-3">
+          <%= f.submit "更新", class: "btn btn-success" %>
+        </div>
+      <% end %>
+
+  </div>
+</div>
+
+<div class="row flex-row-reverse py-5">
+  <div class="col-md-3 "><%#= link_to "退会する", confirm_path, class: "btn btn-delete btn-sm" %></div>
+</div>
+
+<script>
+  const checkbox = document.getElementById('switch');
+  checkbox.addEventListener('click', () => {
+    const title = document.querySelector('.title');
+    title.textContent = checkbox.checked ? '退会' : '入会';
+  });
+</script>
+
+<!--以下参考-->
+
+<!--  【HTMLとCSSだけでOK！】ON／OFFの切り替えができるトグルボタンを作ってみよう！-->
+<!--    https://web-camp.io/magazine/archives/90654-->
+
+  <!--input要素でON/OFFのスイッチを作成してみよう-->-->
+    <!--https://reffect.co.jp/html/toggle-switch/-->

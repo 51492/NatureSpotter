@@ -1,0 +1,13 @@
+<p>
+  Hot Tag：
+  <% tag_list.each do |list|%>
+    <i class="fa-sharp fa-solid fa-tag"></i>
+    <%= link_to list.tag, search_tag_path(tag_id: list.id) %>
+    <%= "(#{list.posts.count})" %>
+  <% end %>
+</p>
+
+<!--参照元ファイル-->
+
+  <!--/Portfolio/NatureSpotter/app/views/users/posts/search_tag.html.erb-->
+  <!--/Portfolio/NatureSpotter/app/views/users/posts/index.html.erb-->
