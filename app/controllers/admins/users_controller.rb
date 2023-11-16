@@ -14,11 +14,9 @@ class Admins::UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def update #顧客情報アプデ
+  def update
     @user = User.find(params[:id])
-    # @customer.update(customer_params)
-    # redirect_to customer_path
-    if @user.update(customer_params)
+    if @user.update(user_params)
       redirect_to admins_user_path(@user), notice: "user情報を更新しました。"
     else
       render :edit

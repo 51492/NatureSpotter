@@ -28,24 +28,18 @@
   function initMap(){
     geocoder = new google.maps.Geocoder()
 
+    // 地図生成
     map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: 35.6764225, lng:139.650027},
       zoom: 12,
+      mapTypeControlOptions: {
+        mapTypeIds: [google.maps.MapTypeId.ROADMAP, myMapTypeId]
+      }
     });
 
-
-    // marker = new google.maps.Marker({
-    //   position:  {lat: 35.6764225, lng:139.650027},
-    //   map: map,
-    //   icon: {
-    //     url: "<%#= asset_path('mapicon.png') %>",
-    //     size: new google.maps.Size(30, 35), // 画像の初期サイズを指定
-    //     scaledSize: new google.maps.Size(30, 35) // 画像の表示サイズを指定
-    //   },
-    // });
-
+    // 地図に各投稿に紐づくマーカーを表示
     var posts = gon.post; // JSON文字列を配列に変換
-    post.forEach(function(post) {
+    posts.forEach(function(post) {
       var marker = new google.maps.Marker({
         position: {lat: post.post_latitude, lng: post.post_longitude},
         map: map,
@@ -60,6 +54,62 @@
         window.location.href = "リンク先のURL";
       });
     });
+
+    // スタイルの設定
+    const myMapType = new google.maps.StyledMapType([
+      {
+        stylers: [
+          {visibility: "simplified"},
+        ],
+      },
+
+      {
+        featureType: "water",
+        elementType: "geometry.fill",
+        stylers: [
+          {hue: "#003bff"},
+          {color: "#8ecdf0"},
+        ],
+      },
+
+      {
+        featureType: 'road.highway',
+        stylers: [
+          {visibility: "off"},
+        ],
+      },
+
+      {
+        featureType: "landscape",
+        stylers: [
+          {color: "#dbe8e5"},
+        ],
+      },
+
+      {
+        featureType: "poi.park",
+        stylers: [
+          {color: "#e6e6e6"},
+        ],
+      },
+
+      {
+        featureType: "transit.line",
+        stylers: [
+          {visibility: "off"},
+        ],
+      },
+
+    ],
+      {
+        name: 'ラベルなし',
+    });
+
+    var myMapTypeId = 'my_style';
+
+    // 地図にスタイルを追加
+    map.mapTypes.set(myMapTypeId, myMapType);
+    map.setMapTypeId(myMapTypeId);
   }
 
 
@@ -97,3 +147,7 @@
   }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV["GMAP_API"] %>&callback=initMap" async defer></script>
+
+<!--以下参考-->
+  <!--【Google Maps API】地図デザインの変更と「Styling Wizard」の使い方-->
+    <!--https://www.granfairs.com/blog/staff/google-maps-api-04-->

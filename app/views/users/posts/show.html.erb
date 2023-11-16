@@ -112,6 +112,61 @@
       },
       map: map
     });
+
+    const myMapType = new google.maps.StyledMapType([
+      {
+        stylers: [
+          {visibility: "simplified"},
+        ],
+      },
+
+      {
+        featureType: "water",
+        elementType: "geometry.fill",
+        stylers: [
+          {hue: "#003bff"},
+          {color: "#8ecdf0"},
+        ],
+      },
+
+      {
+        featureType: 'road.highway',
+        stylers: [
+          {visibility: "off"},
+        ],
+      },
+
+      {
+        featureType: "landscape",
+        stylers: [
+          {color: "#dbe8e5"},
+        ],
+      },
+
+      {
+        featureType: "poi.park",
+        stylers: [
+          {color: "#e6e6e6"},
+        ],
+      },
+
+      {
+        featureType: "transit.line",
+        stylers: [
+          {visibility: "off"},
+        ],
+      },
+
+    ],
+      {
+        name: 'ラベルなし',
+    });
+
+    var myMapTypeId = 'my_style';
+
+    // 地図にスタイルを追加
+    map.mapTypes.set(myMapTypeId, myMapType);
+    map.setMapTypeId(myMapTypeId);
   }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GMAP_API'] %>&callback=initMap" async defer></script>
