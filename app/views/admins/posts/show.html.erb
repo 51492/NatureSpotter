@@ -36,7 +36,8 @@
           </tr>
 
           <tr>
-            <td style="width: 60%"><%= link_to "投稿削除", admins_post_path(@post), method: :delete,class: "btn btn-danger", data: { confirm: "本当に投稿を削除しますか？" } %></td>
+            <td style="width: 40%"><%= link_to "投稿削除", admins_post_path(@post), method: :delete,class: "btn btn-danger", data: { confirm: "本当に投稿を削除しますか？" } %></td>
+            <td style="width: 60%"></td>
           </tr>
         </table>
 
@@ -107,8 +108,71 @@
         lat: gon.post.post_latitude,
         lng: gon.post.post_longitude
       },
-      map: map
+      map: map,
+
+      // アイコンを用意した画像に変更
+      icon: {
+        url: "<%= asset_path('mapicon.png') %>",
+        size: new google.maps.Size(30, 35), // 画像の初期サイズを指定
+        scaledSize: new google.maps.Size(30, 35) // 画像の表示サイズを指定
+      },
     });
+
+    // スタイルの設定
+    const myMapType = new google.maps.StyledMapType([
+      {
+        stylers: [
+          {visibility: "simplified"},
+        ],
+      },
+
+      {
+        featureType: "water",
+        elementType: "geometry.fill",
+        stylers: [
+          {hue: "#003bff"},
+          {color: "#8ecdf0"},
+        ],
+      },
+
+      {
+        featureType: 'road.highway',
+        stylers: [
+          {visibility: "off"},
+        ],
+      },
+
+      {
+        featureType: "landscape",
+        stylers: [
+          {color: "#dbe8e5"},
+        ],
+      },
+
+      {
+        featureType: "poi.park",
+        stylers: [
+          {color: "#e6e6e6"},
+        ],
+      },
+
+      {
+        featureType: "transit.line",
+        stylers: [
+          {visibility: "off"},
+        ],
+      },
+
+    ],
+      {
+        name: 'ラベルなし',
+    });
+
+    var myMapTypeId = 'my_style';
+
+    // 地図にスタイルを追加
+    map.mapTypes.set(myMapTypeId, myMapType);
+    map.setMapTypeId(myMapTypeId);
   }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GMAP_API'] %>&callback=initMap" async defer></script>

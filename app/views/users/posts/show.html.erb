@@ -110,7 +110,14 @@
         lat: gon.post.post_latitude,
         lng: gon.post.post_longitude
       },
-      map: map
+      map: map,
+      
+      // アイコンを用意した画像に変更
+      icon: {
+        url: "<%= asset_path('mapicon.png') %>",
+        size: new google.maps.Size(30, 35), // 画像の初期サイズを指定
+        scaledSize: new google.maps.Size(30, 35) // 画像の表示サイズを指定
+      },
     });
 
     const myMapType = new google.maps.StyledMapType([

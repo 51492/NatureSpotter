@@ -3,7 +3,7 @@
 <input id="address" type="textbox" placeholder="東京">
 <input type="button" value="検索" onclick="codeAddress()">
 
-<div id="display">緯度経度が表示される、、、、！</div>
+<!--<div id="display">緯度経度が表示される、、、、！</div>-->
 
 <div id='map'></div>
 
@@ -43,6 +43,8 @@
       var marker = new google.maps.Marker({
         position: {lat: post.post_latitude, lng: post.post_longitude},
         map: map,
+      
+        // アイコンを用意した画像に変更
         icon: {
           url: "<%= asset_path('mapicon.png') %>",
           size: new google.maps.Size(30, 35), // 画像の初期サイズを指定
@@ -51,7 +53,7 @@
       });
 
       marker.addListener('click', function() {
-        window.location.href = "リンク先のURL";
+        window.location.href = "<%#= post_path(post) %>";
       });
     });
 
@@ -132,7 +134,7 @@
               scaledSize: new google.maps.Size(30, 35) // 画像の表示サイズを指定（適宜変更してください）
             },
         });
-        display.textContent = "検索結果：" + results[ 0 ].geometry.location
+        // display.textContent = "検索結果：" + results[ 0 ].geometry.location
         }
 
         else {
@@ -151,3 +153,6 @@
 <!--以下参考-->
   <!--【Google Maps API】地図デザインの変更と「Styling Wizard」の使い方-->
     <!--https://www.granfairs.com/blog/staff/google-maps-api-04-->
+    
+  <!--スタイルマップを使用して地図の雰囲気を変えてみる-->
+    <!--https://maps.multisoup.co.jp/blog/249/-->
