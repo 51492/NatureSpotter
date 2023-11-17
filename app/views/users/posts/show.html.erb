@@ -1,11 +1,13 @@
-<div class="row my-3">
+<%= stylesheet_link_tag 'users/posts', media: 'all' %>
+
+<div class="row">
   <div class="col-sm-8 col-md-8 col-lg-5 offset-sm-2 offset-md-2 offset-lg-1 py-5">
-    <div class="mb-5 py-5"><%= image_tag @post.get_image(450, 450), class: "img-fluid rounded align-self-center" %><%#= attachment_image_tag @post, :image, class: "img-fluid rounded align-self-center", fallback: "no_image.jpg", size: "450x450" %></div>
-    <div id="map"></div>
+    <div class="mb-10", id="image_box"><%= image_tag @post.check_image, class: "img-fluid rounded align-self-center shadow-lg", id: "image" %></div>
+    <div id="map", class="shadow-lg"></div>
   </div>
 
 
-  <div class="col-sm-10 col-md-8 col-lg-5 offset-sm-1 offset-md-2 offset-lg-0 py-5 pt-5">
+  <div class="col-sm-10 col-md-8 col-lg-5 offset-sm-1 offset-md-2 offset-lg-0 py-2">
     <div class="row my-5">
       <div class="col-12">
         <table class="table">
@@ -32,7 +34,7 @@
 
           <tr>
             <td style="width: 30%">投稿日時</td>
-            <td style="width: 70%"><%= @post.created_at.strftime('%Y/%m/%d %H:%M') %></td>
+            <td style="width: 70%"><%= @post.created_at.to_s(:datetime_jp) %></td>  <!--/Portfolio/NatureSpotter/config/initializers/time_formats.rbの表記に合わせる記述法-->
           </tr>
 
           <% if @user == current_user %>
@@ -83,12 +85,7 @@
   </div>
 </div>
 
-<style>
-  #map {
-    height: 450px;
-    width: 450px;
-  }
-</style>
+
 
 <!--マップ表示JS-->
 <script>
@@ -111,7 +108,7 @@
         lng: gon.post.post_longitude
       },
       map: map,
-      
+
       // アイコンを用意した画像に変更
       icon: {
         url: "<%= asset_path('mapicon.png') %>",

@@ -32,10 +32,18 @@ class Post < ApplicationRecord
 
 
   # 投稿時画像が無い場合no_image.jpgを表示するメソッド ===========================
+  def check_image
+    unless image.attached?
+      file_path = Rails.root.join('app/assets/images/post_no_image.jpg')
+      image.attach(io: File.open(file_path), filename: 'post_no_image.jpg', content_type: 'image/jpeg')
+    end
+      image
+  end
+
   def get_image(width, height)
     unless image.attached?
       file_path = Rails.root.join('app/assets/images/post_no_image.jpg')
-      image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
+      image.attach(io: File.open(file_path), filename: 'post_no_image.jpg', content_type: 'image/jpeg')
     end
       image.variant(resize_to_fill: [width, height]).processed
   end
