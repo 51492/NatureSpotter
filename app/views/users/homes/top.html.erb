@@ -1,8 +1,15 @@
-<h2>スポット検索</h2>
+<div class="d-flex flex-column flex-sm-row">
+  <div class="mx-2 pt-1">
+    <h3 class="ch">スポット検索</h3>
+  </div>
 
-<input id="address" type="textbox" placeholder="東京">
-<input type="button" value="検索" onclick="codeAddress()">
+  <div class="tag_list mx-2 py-2">
+    <input id="address" type="textbox" placeholder="気になる場所を検索！">
+    <input type="button" value="検索" onclick="codeAddress()">
+  </div>
+</div>
 
+<hr class="mt-0 mb-2">
 <!--<div id="display">緯度経度が表示される、、、、！</div>-->
 
 <div data-turbolinks="false", id='map'></div>
@@ -43,7 +50,7 @@
       var marker = new google.maps.Marker({
         position: {lat: post.post_latitude, lng: post.post_longitude},
         map: map,
-      
+
         // アイコンを用意した画像に変更
         icon: {
           url: "<%= asset_path('mapicon.png') %>",
@@ -153,6 +160,6 @@
 <!--以下参考-->
   <!--【Google Maps API】地図デザインの変更と「Styling Wizard」の使い方-->
     <!--https://www.granfairs.com/blog/staff/google-maps-api-04-->
-    
+
   <!--スタイルマップを使用して地図の雰囲気を変えてみる-->
     <!--https://maps.multisoup.co.jp/blog/249/-->

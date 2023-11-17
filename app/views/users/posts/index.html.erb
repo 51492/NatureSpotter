@@ -1,12 +1,14 @@
-<div class="row">
-  <div class="col-12 col-md-8 mx-2 py-4">
-    <h2 class="ch">投稿一覧</h2>
+<div class="d-flex flex-column flex-lg-row">
+  <div class="mx-2 pt-1">
+    <h3 class="ch">投稿一覧</h3>
+  </div>
+
+  <div class="tag_list mx-2 py-2">
+    <%= render "users/partial_templates/tag_list_index", tag_list: @tag_list %>
   </div>
 </div>
 
-<!--タグリスト-->
-<%= render "users/partial_templates/tag_list_index", tag_list: @tag_list %>
-
+<hr class="mt-0 mb-2">
 <!--<%#= form_tag({controller:"posts",action:"index"}, method: :get) do %>-->
 <!--    <%# Tag.all.each do |t| %>-->
 <!--        <li><%#= check_box :tag_ids, t.tag %><%#= t.tag %></li>-->
