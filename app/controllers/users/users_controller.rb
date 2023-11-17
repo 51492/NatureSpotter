@@ -22,6 +22,15 @@ class Users::UsersController < ApplicationController
       render :edit
     end
   end
+  
+  def withdrawal
+    @user = User.find(params[:id])
+    # is_deletedカラムをtrueに変更することにより削除フラグを立てる
+    @user.update(is_withdrawal: true)
+    reset_session
+    flash[:notice] = "退会処理を実行しました。"
+    redirect_to root_path
+  end
 
   def index
     @users = User.all.order(created_at: :desc).page(params[:page]).per(10)

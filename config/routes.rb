@@ -22,9 +22,7 @@ Rails.application.routes.draw do
     get '/about' => 'homes#about', as: "about"
     get "search_tag" => "posts#search_tag"
     get "search" => "searches#search"
-    
-    get '/users/:id/unsubscribe' => 'users#unsubscribe', as: 'unsubscribe'
-    patch '/users/:id/withdrawal' => 'users#withdrawal', as: 'withdrawal'
+
 
     # URIが「users/:id」となりdeviseと競合するためpathオプションを用いてURIを「user/:id」で定義
     resources :users, only: [:index, :show, :edit, :update], path: "user" do
@@ -38,6 +36,10 @@ Rails.application.routes.draw do
       member do
         get :likes 
       end
+      
+      # 退会
+      get '/users/:id/unsubscribe' => 'users#unsubscribe', as: 'unsubscribe'
+      patch '/users/:id/withdrawal' => 'users#withdrawal', as: 'withdrawal'
 
     end
     

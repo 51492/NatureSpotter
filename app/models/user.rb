@@ -78,10 +78,15 @@ class User < ApplicationRecord
   end
   # ==============================================================================
 
+  # 退会会員のログイン制約 =======================================================
+  def active_for_authentication?
+    super && (is_withdrawal == false)
+  end
+  # ==============================================================================
 
   # geocoder =====================================================================
   # geocoded_by :address # addressカラムを基準に緯度経度を算出する
-  
+
   # # after_validation :geocode, if: :address_changed?
   # after_validation :geocode, if: :persisted?
   # ==============================================================================
@@ -96,7 +101,7 @@ end
 
   # 【Rails】フォロー・フォロワー機能
     # https://zenn.dev/ganmo3/articles/a3633e8f3209da
-    
-  
+
+
   #【Ruby on rails6】Google Map APIをアプリケーションに導入する
     # https://naskanoheya.com/catch-up/g-map

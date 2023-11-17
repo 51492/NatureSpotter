@@ -12,6 +12,11 @@ class Admins::UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+    if @user.is_withdrawal = false
+      @status = "入会"
+    else
+      @status = "退会"
+    end
   end
 
   def update
