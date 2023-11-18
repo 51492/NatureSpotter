@@ -60,7 +60,7 @@
       });
 
       marker.addListener('click', function() {
-        window.location.href = "<%#= post_path(post) %>";
+        window.location.href = "/posts/" + post.id;
       });
     });
 
