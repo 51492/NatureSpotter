@@ -1,0 +1,15 @@
+#header {
+  display: none;
+}
+
+body{
+  background-image: url('/assets/about.jpg');
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+.about{
+  height: 100vh;
+}

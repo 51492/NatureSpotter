@@ -1,11 +1,36 @@
 @use '~bootstrap/scss/bootstrap';
 
 body {
-  background-color: #fff;
+  background-color: #eee;
 }
 
 #header {
   background-image: url('/assets/header_background.jpg');
   background-size: cover;
   background-position: center;
+}
+
+.navbar {
+  color: #000;
+  text-shadow:0.5px 0.5px 0 #FFF, -0.5px -0.5px 0 #FFF,
+              -0.5px 0.5px 0 #FFF, 0.5px -0.5px 0 #FFF,
+              0px 0.5px 0 #FFF,  0-0.5px 0 #FFF,
+              -0.5px 0 0 #FFF, 0.5px 0 0 #FFF;
+}
+
+.nav-link{
+  color: #000;
+  
+}
+
+.navbar-toggler {
+  // 枠の色
+  border-color: #000;
+
+  // 背景色
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.navbar-toggler .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(50,50,50,1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
 }

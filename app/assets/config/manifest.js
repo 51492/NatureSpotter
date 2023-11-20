@@ -3,3 +3,4 @@
 //= link admins/users.css
 //= link users/posts.css
 //= link users/signin.css
+//= link users/about.css
