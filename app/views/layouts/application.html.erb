@@ -8,6 +8,7 @@
     <%= include_gon %>
 
     <script src="https://kit.fontawesome.com/c518033bf8.js" crossorigin="anonymous"></script>
+    <%#= stylesheet_link_tag 'application', media: 'all' %>
     <%= stylesheet_pack_tag 'application', media: 'all' %>
     <%= javascript_pack_tag 'application' %>
     <%#= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -15,30 +16,30 @@
   </head>
 
   <body>
-    <header>
+    <header id="header">
       <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container d-flex">
-          
+
           <div class=>
             <a class="navbar-brand p-2" href="/"><%= image_tag('header_logo.png', :size => '260x80') %></a>
           </div>
-          
+
           <div class="d-flex flex-row-reverse flex-grow-1 flex-fill">
             <div>
             <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
-  
+
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
               <ul class="navbar-nav ml-auto">
-  
+
                 <% if admin_signed_in? %>
-                  <li class="nav-item"> <%= link_to "About", about_path, class: "nav-link" %> </li>
+                  <li class="nav-item"> <%= link_to "About", about_path, class: "nav-link text-light" %> </li>
                   <li class="nav-item"> <%= link_to "Posts", admins_posts_path, class: "nav-link" %> </li>
                   <li class="nav-item"> <%= link_to "Users", admins_users_path, class: "nav-link" %> </li>
                   <li class="nav-item"> <%#= link_to "Mypage", user_path(current_user), class: "nav-link" %> </li>
                   <li class="nav-item"> <%= link_to "Logout", destroy_admin_session_path, method: :delete, class: "nav-link" %> </li>
-                
+
                 <% elsif user_signed_in? %>
                   <li class="nav-item"> <%= link_to "About", about_path, class: "nav-link" %> </li>
                   <li class="nav-item"> <%= link_to "Posts", posts_path, class: "nav-link" %> </li>
@@ -46,7 +47,7 @@
                   <li class="nav-item"> <%= link_to "New post", new_post_path, class: "nav-link" %> </li>
                   <li class="nav-item"> <%= link_to "Mypage", user_path(current_user), class: "nav-link" %> </li>
                   <li class="nav-item"> <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "nav-link" %> </li>
-  
+
                 <% else %>
                   <li class="nav-item"> <%= link_to "About", about_path, class: "nav-link" %> </li>
                   <li class="nav-item"> <%= link_to "Posts", posts_path, class: "nav-link" %> </li>
@@ -54,7 +55,7 @@
                   <li class="nav-item"> <%= link_to "Signup", new_user_registration_path, class: "nav-link" %> </li>
                   <li class="nav-item"> <%= link_to "GuestLogin(閲覧用)", users_guest_sign_in_path, method: :post, class: "nav-link" %> </li>
                   <li class="nav-item"> <%= link_to "Login", new_user_session_path, class: "nav-link" %> </li>
-  
+
                 <% end %>
               </ul>
             </div>
@@ -66,14 +67,14 @@
             <%= render "users/partial_templates/search" %>
             </div>
           </div>
-          
-          
+
+
         </div>
       </nav>
     </header>
 
 
-    <main>
+    <main id="main">
       <div class="container-fluid">
         <% if flash[:notice] %>
           <p class="alert alert-success"><%= notice %></p>
@@ -86,3 +87,11 @@
     </main>
   </body>
 </html>
+
+<style>
+
+</style>
+
+<script>
+
+</script>

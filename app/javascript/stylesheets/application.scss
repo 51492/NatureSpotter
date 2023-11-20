@@ -1,1 +1,11 @@
 @use '~bootstrap/scss/bootstrap';
+
+body {
+  background-color: #fff;
+}
+
+#header {
+  background-image: url('/assets/header_background.jpg');
+  background-size: cover;
+  background-position: center;
+}

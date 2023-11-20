@@ -111,9 +111,10 @@
 
       // アイコンを用意した画像に変更
       icon: {
-        url: "<%= asset_path('mapicon.png') %>",
-        size: new google.maps.Size(30, 35), // 画像の初期サイズを指定
-        scaledSize: new google.maps.Size(30, 35) // 画像の表示サイズを指定
+        url: "<%= asset_path('map_pin.png') %>",
+        size: new google.maps.Size(40, 40), // 画像の初期サイズを指定
+        scaledSize: new google.maps.Size(40, 40), // 画像の表示サイズを指定
+        // pixelOffset: new google.maps.Size(0, -50), オフセット
       },
     });
 

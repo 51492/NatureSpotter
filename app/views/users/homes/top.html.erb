@@ -1,28 +1,49 @@
-<div class="d-flex flex-column flex-sm-row">
-  <div class="mx-2 pt-1">
-    <h3 class="ch">スポット検索</h3>
-  </div>
-
-  <div class="tag_list mx-2 py-2">
+<div>
+  <div class="mx-2", id="map_search">
     <input id="address" type="textbox" placeholder="気になる場所を検索！">
     <input type="button" value="検索" onclick="codeAddress()">
   </div>
 </div>
 
-<hr class="mt-0 mb-2">
-<!--<div id="display">緯度経度が表示される、、、、！</div>-->
-
 <div data-turbolinks="false", id='map'></div>
 
 <style>
   #map {
-    height: 700px;
+    height: 100vh;
     width: 100%;
+    
+    position: relative;
+    z-index: 1;
   }
 
   #map img {
     max-width: 100%;
     height: auto;
+  }
+
+  #header {
+    background-color: #eee;
+  
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  
+    position: absolute;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    z-index: 2;
+  }
+
+  #main {
+    position: relative;
+    z-index: 1;
+  }
+  
+  #map_search{
+    position: absolute;
+    top: 120px;
+    left: 10px;
+    z-index: 2;
   }
 </style>
 
@@ -39,6 +60,7 @@
     map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: 35.6764225, lng:139.650027},
       zoom: 12,
+      disableDefaultUI: true,
       mapTypeControlOptions: {
         mapTypeIds: [google.maps.MapTypeId.ROADMAP, myMapTypeId]
       }
@@ -53,9 +75,10 @@
 
         // アイコンを用意した画像に変更
         icon: {
-          url: "<%= asset_path('mapicon.png') %>",
-          size: new google.maps.Size(30, 35), // 画像の初期サイズを指定
-          scaledSize: new google.maps.Size(30, 35) // 画像の表示サイズを指定
+          url: "<%= asset_path('map_pin.png') %>",
+          size: new google.maps.Size(40, 40), // 画像の初期サイズを指定
+          scaledSize: new google.maps.Size(40, 40), // 画像の表示サイズを指定
+          // pixelOffset: new google.maps.Size(0, -50), オフセット
         },
       });
 
@@ -121,39 +144,50 @@
     map.setMapTypeId(myMapTypeId);
   }
 
+  // 変数markerにマーカーオブジェクトを代入するための変数を宣言
+  let marker;
 
-
-    //検索フォームのボタンが押された時に実行される
-  function codeAddress(){
-    //検索フォームの入力内容を取得
+  // 検索フォームのボタンが押された時に実行される
+  function codeAddress() {
+    // 検索フォームの入力内容を取得
     let inputAddress = document.getElementById('address').value;
 
-    geocoder.geocode( { 'address': inputAddress}, function(results, status) {
-      //該当する検索結果がヒットした時に、地図の中心を検索結果の緯度経度に更新する
+    geocoder.geocode({ 'address': inputAddress }, function (results, status) {
+      // 該当する検索結果がヒットした時に、地図の中心を検索結果の緯度経度に更新する
       if (status == 'OK') {
-        map.setCenter(results[0].geometry.location);
-        var marker = new google.maps.Marker({
-            map: map,
-            position: results[0].geometry.location,
-            icon: {
-              url: "<%= asset_path('mapicon.png') %>",
-              size: new google.maps.Size(30, 35), // 画像の初期サイズを指定（適宜変更してください）
-              scaledSize: new google.maps.Size(30, 35) // 画像の表示サイズを指定（適宜変更してください）
-            },
-        });
-        // display.textContent = "検索結果：" + results[ 0 ].geometry.location
+        // 前回のマーカーオブジェクトが存在する場合は、削除する
+        if (marker) {
+          marker.setMap(null);
         }
 
-        else {
-        //検索結果が何もなかった場合に表示
+        map.setCenter(results[0].geometry.location);
+
+        marker = new google.maps.Marker({
+          map: map,
+          position: results[0].geometry.location,
+        });
+
+      } else {
+        // 検索結果が何もなかった場合に表示
         alert('該当する結果がありませんでした：' + status);
       }
     });
-
-    marker.addListener('click', function() {
-      window.location.href = "リンク先のURL";
-    });
   }
+
+  // ヘッダーを隠してカーソルがホバーしたときのみ表示する
+  var header = document.getElementById('header');
+
+  document.addEventListener('mousemove', function(event) {
+    var y = event.clientY; // マウスカーソルのY座標を取得
+    var headerHeight = header.offsetHeight; // ヘッダーの高さを取得
+
+    if (y <= headerHeight) {
+      header.style.opacity = 0.9; // マウスカーソルがヘッダー内にあるときは完全に表示する
+    } else {
+      var opacity = (headerHeight - y) / headerHeight; // ヘッダーの非表示部分の高さに応じて透明度を設定
+      header.style.opacity = opacity;
+    }
+  });
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV["GMAP_API"] %>&callback=initMap" async defer></script>
 
