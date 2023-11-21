@@ -2,16 +2,16 @@
 
 <div class="about d-flex justify-content-center">
   <div class="about-box d-flex flex-column">
-    
+
     <div class="about-h mx-auto mt-5 text-center">
       <h1>A B O U T</h1>
     </div>
-    
+
     <div class="mx-5">
       <hr color="#AAA">
     </div>
 
-    <div class="text-center about-c my-3 mx-4">
+    <div class="text-center about-c my-3 mx-5">
       <p>ビギナーからベテランまで楽しめるアウトドア専用SNSサイトです。</p>
       <p>「キャンプ未経験だけど、どこのスポットがオススメなんだろう…？」</p>
       <p>「このポイントで釣りをしたいが、どの釣法だと釣れやすいのかな…？」</p>
@@ -32,7 +32,7 @@
     var headerHeight = header.offsetHeight; // ヘッダーの高さを取得
 
     if (y <= headerHeight) {
-      header.style.opacity = 0.9; // マウスカーソルがヘッダー内にあるときは完全に表示する
+      header.style.opacity = 0.6; // マウスカーソルがヘッダー内にあるときは表示
     } else {
       var opacity = (headerHeight - y) / headerHeight; // ヘッダーの非表示部分の高さに応じて透明度を設定
       header.style.opacity = opacity;

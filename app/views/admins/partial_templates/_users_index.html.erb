@@ -21,7 +21,11 @@
             </td>
 
             <td>
-       %>
+              <% if user.is_withdrawal %>
+                <b>退会</b>
+              <% else %>
+                <b>入会</b>
+              <% end %>
             </td>
           </tr>
         <% end %>

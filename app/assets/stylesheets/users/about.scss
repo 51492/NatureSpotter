@@ -28,8 +28,19 @@ body{
 }
 
 .about-box{
+  position: relative;
+  z-index: 0;
+  top: 90px;
+}
+
+.about-box::before{
+  content: '';
   background-color: rgba(238, 238, 238, 0.7);;
   position: absolute;
-  top: 100px;
   border-radius: 10px;
+  filter: blur(5px);
+  z-index: -1;
+  width: 100%;
+  height: 70vh;
+  display: block;   /* widthやheight指定時は必要 */
 }

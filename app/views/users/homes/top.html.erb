@@ -75,8 +75,8 @@
 
   #map_search{
     position: absolute;
-    top: 120px;
-    left: 10px;
+    top: 100px;
+    left: 30px;
     z-index: 2;
   }
 </style>
@@ -216,7 +216,7 @@
     var headerHeight = header.offsetHeight; // ヘッダーの高さを取得
 
     if (y <= headerHeight) {
-      header.style.opacity = 0.9; // マウスカーソルがヘッダー内にあるときは完全に表示する
+      header.style.opacity = 0.8; // マウスカーソルがヘッダー内にあるときは完全に表示する
     } else {
       var opacity = (headerHeight - y) / headerHeight; // ヘッダーの非表示部分の高さに応じて透明度を設定
       header.style.opacity = opacity;
