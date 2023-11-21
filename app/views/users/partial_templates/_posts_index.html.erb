@@ -9,8 +9,8 @@
 
         <div class="card-body">
           <h5 class="card-title"><%= link_to post.place, post_path(post), class: 'text-dark' %></h5>
-          <div class="card-text"><i class="fa-solid fa-location-dot"></i>&nbsp;<%= post.address %></div>
-          <div class="card-text pl-3"><%= post.caption %></div>
+          <div class="card-text"><p class="content"><i class="fa-solid fa-location-dot"></i>&nbsp;<%= post.address %></p></div>
+          <div class="card-text pl-3"><p class="content"><%= post.caption %></p></div>
           <div>
             <span id="like_btn_<%= post.id %>"><%= render "users/partial_templates/like", post: post %></span>&emsp;
             <i class="fa-regular fa-comments"></i>&nbsp;<span id="comment_count"><%= render "users/partial_templates/comment_count", post: post %></span>
@@ -22,6 +22,15 @@
     </div>
   <% end %>
 </div>
+
+<style>
+  .content{
+    margin-bottom: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+</style>
 
 <!--参照元viewファイル-->
   <!--/Portfolio/NatureSpotter/app/views/users/posts/index.html.erb-->

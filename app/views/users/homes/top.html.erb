@@ -1,87 +1,29 @@
+<%= stylesheet_link_tag 'top', media: 'all' %>
+
 <div>
   <div class="mx-2", id="map_search">
-    <form method="get" action="#" class="search_container">
+    <div class="search_container">
       <input id="address" type="text" size="25" placeholder="気になる場所を検索！">
-      <input type="submit" value="&#xf002" onclick="codeAddress()">
-    </form>
-    <!--<input id="address" type="textbox" placeholder="気になる場所を検索！">-->
-    <!--<input type="button" value="検索" onclick="codeAddress()">-->
+      <button type="submit" onclick="codeAddress()"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </div>
   </div>
 </div>
 
 <div data-turbolinks="false", id='map'></div>
 
-<style>
-.search_container{
-  box-sizing: border-box;
-  position: relative;
-  border: 1px solid #999;
-  padding: 3px 10px;
-  border-radius: 20px;
-  height: 2.6em;
-  width: 265px;
-  overflow: hidden;
-  background-color: #fff;
-}
-.search_container input[type="text"]{
-  border: none;
-  height: 2.0em;
-}
-.search_container input[type="text"]:focus {
-  outline: 0;
-}
-.search_container input[type="submit"]{
-  cursor: pointer;
-  font-family: FontAwesome;
-  border: none;
-  background: #3899d9;
-  color: #fff;
-  position: absolute;
-  width: 3.5em;
-  height: 3.0em;
-  right:0px;
-  top: -3px;
-  outline : none;
-}
-
-  #map {
-    height: 100vh;
-    width: 100%;
-
-    position: relative;
-    z-index: 1;
-  }
-
-  #map img {
-    max-width: 100%;
-    height: auto;
-  }
-
-  #header {
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-
-    position: absolute;
-    right: 0;
-    left: 0;
-    margin: 0 auto;
-    z-index: 2;
-  }
-
-  #main {
-    position: relative;
-    z-index: 1;
-  }
-
-  #map_search{
-    position: absolute;
-    top: 100px;
-    left: 30px;
-    z-index: 2;
-  }
-</style>
-
 <script>
+
+  let text_form = document.getElementById("address");
+
+  text_form.addEventListener('keypress', test_ivent);
+
+  function test_ivent(e) {
+    const ENTER_KEY = 13
+    if (e.keyCode === ENTER_KEY) {
+      codeAddress()
+    }
+  }
+
   let map
   let geocoder
 
@@ -124,48 +66,110 @@
     // スタイルの設定
     const myMapType = new google.maps.StyledMapType([
       {
+        featureType: "landscape",
+        elementType: "geometry",
+        stylers: [
+          {visibility: "on"},
+        ],
+      },
+
+      {
+        featureType: "landscape",
+        elementType: "labels",
         stylers: [
           {visibility: "simplified"},
         ],
       },
 
       {
+        featureType: 'poi',
+        elementType: "labels",
+        stylers: [
+          {visibility: "on"},
+        ],
+      },
+
+      {
+        featureType: "poi.attraction",
+        elementType: "labels",
+        stylers: [
+          {visibility: "on"},
+        ],
+      },
+
+      {
+        featureType: "poi.business",
+        elementType: "labels",
+        stylers: [
+          {visibility: "on"},
+        ],
+      },
+
+      {
+        featureType: "poi.medical",
+        elementType: "labels",
+        stylers: [
+          {visibility: "off"},
+        ],
+      },
+      
+      {
+        featureType: "poi.school",
+        elementType: "labels",
+        stylers: [
+          {visibility: "off"},
+        ],
+      },
+      
+      {
+        featureType: "poi.sports_complex",
+        elementType: "labels",
+        stylers: [
+          {visibility: "off"},
+        ],
+      },
+      
+      {
+        featureType: "road",
+        elementType: "geometry",
+        stylers: [
+          {lightness: 57},
+        ],
+      },
+      
+      {
+        featureType: "road",
+        elementType: "labels.text.fill",
+        stylers: [
+          {visibility: "on"},
+          {lightness: 24},
+        ],
+      },
+      
+      {
+        featureType: "road",
+        elementType: "labels.icon",
+        stylers: [
+          {visibility: "off"},
+        ],
+      },
+      
+      {
+        featureType: "transit",
+        elementType: "labels",
+        stylers: [
+          {visibility: "on"},
+        ],
+      },
+      
+      {
         featureType: "water",
-        elementType: "geometry.fill",
+        elementType: "labels",
         stylers: [
-          {hue: "#003bff"},
-          {color: "#8ecdf0"},
+          {visibility: "on"},
         ],
       },
-
-      {
-        featureType: 'road.highway',
-        stylers: [
-          {visibility: "off"},
-        ],
-      },
-
-      {
-        featureType: "landscape",
-        stylers: [
-          {color: "#dbe8e5"},
-        ],
-      },
-
-      {
-        featureType: "poi.park",
-        stylers: [
-          {color: "#e6e6e6"},
-        ],
-      },
-
-      {
-        featureType: "transit.line",
-        stylers: [
-          {visibility: "off"},
-        ],
-      },
-
+      
     ],
       {
         name: 'ラベルなし',

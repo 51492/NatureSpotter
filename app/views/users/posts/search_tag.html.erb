@@ -1,11 +1,16 @@
 <div class="row">
-  <div class="col-12 col-md-8 mx-2 py-4">
-    <h2 class="ch">タグが"<%=@tag.tag%>"の投稿一覧</h2>
+  <div class="col-12 col-md-8 mx-2 pt-3">
+    <h3 class="ch">タグが "<%=@tag.tag%>" の投稿一覧</h3>
+  </div>
+</div>
+<!--タグリスト-->
+<div class="d-flex flex-column flex-lg-row">
+  <div class="tag_list mx-2 pb-1">
+    <%= render "users/partial_templates/tag_list_index", tag_list: @tag_list %>
   </div>
 </div>
 
-<!--タグリスト-->
-<%= render "users/partial_templates/tag_list_index", tag_list: @tag_list %>
+<hr class="mt-0 mb-2">
 
 <!--投稿一覧-->
 <%= render "users/partial_templates/posts_index", posts: @posts %>

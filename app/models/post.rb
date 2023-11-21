@@ -11,6 +11,10 @@ class Post < ApplicationRecord
   has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
 
+  validates :place, presence: true
+  validates :address, presence: true
+  validates :caption, presence: true
+
   # タグ保存のためのメソッド =====================================================
   def save_tags(tags)
     current_tags = self.tags.pluck(:tag) unless self.tags.nil? # self(クラス)のtagデータが存在していれば、タグを配列としてすべて取得

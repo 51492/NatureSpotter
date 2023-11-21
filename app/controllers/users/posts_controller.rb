@@ -13,8 +13,9 @@ class Users::PostsController < ApplicationController
 
     if @post.save
       @post.save_tags(tag_list)
-      redirect_to post_path(@post), notice:"投稿完了"
+      redirect_to post_path(@post), notice:"投稿が完了しました。"
     else
+      flash.now[:alert] = '投稿に失敗しました。'
       render :new
     end
   end
