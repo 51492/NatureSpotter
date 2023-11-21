@@ -1,17 +1,53 @@
 <div>
   <div class="mx-2", id="map_search">
-    <input id="address" type="textbox" placeholder="気になる場所を検索！">
-    <input type="button" value="検索" onclick="codeAddress()">
+    <form method="get" action="#" class="search_container">
+      <input id="address" type="text" size="25" placeholder="気になる場所を検索！">
+      <input type="submit" value="&#xf002" onclick="codeAddress()">
+    </form>
+    <!--<input id="address" type="textbox" placeholder="気になる場所を検索！">-->
+    <!--<input type="button" value="検索" onclick="codeAddress()">-->
   </div>
 </div>
 
 <div data-turbolinks="false", id='map'></div>
 
 <style>
+.search_container{
+  box-sizing: border-box;
+  position: relative;
+  border: 1px solid #999;
+  padding: 3px 10px;
+  border-radius: 20px;
+  height: 2.6em;
+  width: 265px;
+  overflow: hidden;
+  background-color: #fff;
+}
+.search_container input[type="text"]{
+  border: none;
+  height: 2.0em;
+}
+.search_container input[type="text"]:focus {
+  outline: 0;
+}
+.search_container input[type="submit"]{
+  cursor: pointer;
+  font-family: FontAwesome;
+  border: none;
+  background: #3899d9;
+  color: #fff;
+  position: absolute;
+  width: 3.5em;
+  height: 3.0em;
+  right:0px;
+  top: -3px;
+  outline : none;
+}
+
   #map {
     height: 100vh;
     width: 100%;
-    
+
     position: relative;
     z-index: 1;
   }
@@ -22,11 +58,9 @@
   }
 
   #header {
-    background-color: #eee;
-  
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
-  
+
     position: absolute;
     right: 0;
     left: 0;
@@ -38,7 +72,7 @@
     position: relative;
     z-index: 1;
   }
-  
+
   #map_search{
     position: absolute;
     top: 120px;

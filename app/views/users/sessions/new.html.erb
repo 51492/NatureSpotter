@@ -5,7 +5,9 @@
     <%= form_with model: @user, url: user_session_path, local: true do |f| %>
 
     <div class="text-center">
-      <%= image_tag "header_logo", class:'logo mt-3 ml-3' %>
+      <%= link_to root_path do %>
+        <%= image_tag "header_logo", class:'logo mt-3 ml-3' %>
+      <% end %>
     </div>
 
     <div class="box-email mt-3">
@@ -37,7 +39,7 @@
     <% end %>
 
     <div class="box-newusr mt-5">
-      <p><span>----------</span> アカウントをお持ちでないですか？ <span>----------</span></p>
+      <p><span>---------</span> アカウントをお持ちでないですか？ <span>---------</span></p>
       <%= link_to "Signup", new_user_registration_path %>
     </div>
   </div>
