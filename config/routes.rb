@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
 
   # 管理者側 =====================================================================
   devise_for :admins, controllers: {
@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     passwords:     'admins/passwords',
     # registrations: 'admins/registrations'
   }
-  
+
   namespace :admins do
     resources :users, except: []
     resources :posts
@@ -22,30 +22,31 @@ Rails.application.routes.draw do
     get '/about' => 'homes#about', as: "about"
     get "search_tag" => "posts#search_tag"
     get "search" => "searches#search"
+    get ":post_latitude/:post_longitude/posts", to: "posts#location", as: "location_posts", constraints: { post_latitude: /[^\/]+/, post_longitude: /[^\/]+/ }
 
 
     # URIが「users/:id」となりdeviseと競合するためpathオプションを用いてURIを「user/:id」で定義
     resources :users, only: [:index, :show, :edit, :update], path: "user" do
-      
+
       # フォロー関連をusersにネストすることでURIにuser_idを持たせ、特定のユーザーに関するフォロー情報を得られる
       resource :relationships, only: [:create, :destroy]
       get "followings" => "relationships#followings", as: "followings"
       get "followers" => "relationships#followers", as: "followers"
-      
+
       # いいね一覧をusersにネストし、member doでidを持たせることで、どのユーザーがいいねしたのかをurlで判別できるようになる
       member do
-        get :likes 
+        get :likes
       end
-      
+
       # 退会
       get '/users/:id/unsubscribe' => 'users#unsubscribe', as: 'unsubscribe'
       patch '/users/:id/withdrawal' => 'users#withdrawal', as: 'withdrawal'
 
     end
-    
+
     # コメントといいねのルートをpostのルートにネストする
     resources :posts do
-      resources :comments, only: [:create, :destroy] 
+      resources :comments, only: [:create, :destroy]
       resource :likes, only: [:create, :destroy]
     end
   end

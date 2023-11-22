@@ -17,19 +17,21 @@ class Post < ApplicationRecord
 
   # タグ保存のためのメソッド =====================================================
   def save_tags(tags)
+
     current_tags = self.tags.pluck(:tag) unless self.tags.nil? # self(クラス)のtagデータが存在していれば、タグを配列としてすべて取得
     old_tags = current_tags - tags # 既存のタグから送られてきたタグを除いたタグ
     new_tags = tags - current_tags # 送られてきたタグから既存のタグを除いたタグ
 
     # 古いタグを削除
     old_tags.each do |old_tag|
-      self.workout_tags.delete WorkoutTag.find_by(tag:old_tag)
+      tag = Tag.find_by(tag: old_tag)
+      self.tags.delete(tag) if tag.present?
     end
 
     # 新しいタグを保存
     new_tags.each do |new_tag|
-      tag = Tag.find_or_create_by(tag:new_tag)
-      self.tags << tag
+      tag = Tag.find_or_create_by(tag:new_tag) if new_tag.present?
+      self.tags << tag if tag.present?
     end
   end
   # ==============================================================================

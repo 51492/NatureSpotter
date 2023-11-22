@@ -1,7 +1,7 @@
 class Tag < ApplicationRecord
   has_many :taggings, dependent: :destroy
   has_many :posts, through: :taggings
-  
+
   def self.search(search)
     if search != '#'
       tag = Tag.where(tag: search)

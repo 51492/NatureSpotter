@@ -9,13 +9,13 @@ class Users::PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.user_id = current_user.id
 
-    tag_list = params[:post][:tag].split(",") # paramsで受け取った値を「,」で区切ってハッシュにする
+    tag_list = params[:post][:tag].split(",").map(&:strip) # paramsで受け取った値を「,」で区切ってハッシュにし、スペースを空白と同じ扱いとする
 
     if @post.save
       @post.save_tags(tag_list)
-      redirect_to post_path(@post), notice:"投稿が完了しました。"
+      redirect_to post_path(@post), notice:"投稿が完了しました"
     else
-      flash.now[:alert] = '投稿に失敗しました。'
+      flash.now[:alert] = '投稿に失敗しました'
       render :new
     end
   end
@@ -42,13 +42,14 @@ class Users::PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
-    
-    tag_list = params[:post][:tag].split(",") # paramsで受け取った値を「,」で区切ってハッシュにする
-    
+
+    tag_list = params[:post][:tag].gsub(/[[:space:]]/, '').split(",") # paramsで受け取った値を「,」で区切ってハッシュにし、スペースを空白と同じ扱いとする
+
     if @post.update(post_params)
       @post.save_tags(tag_list)
-      redirect_to post_path(@post), notice: "投稿編集完了"
+      redirect_to post_path(@post), notice: "投稿編集が完了しました"
     else
+      flash.now[:alert] = '投稿編集に失敗しました'
       render "edit"
     end
   end
@@ -65,13 +66,20 @@ class Users::PostsController < ApplicationController
     @posts = @tag.posts.all.order(created_at: :desc).page(params[:page]).per(12)
   end
 
+  def location
+    @location_lat = params[:post_latitude]
+    @location_lon = params[:post_longitude]
+    if params[:post_latitude].present? && params[:post_longitude].present?
+      @posts = Post.where(post_latitude: params[:post_latitude], post_longitude: params[:post_longitude]).all.order(created_at: :desc).page(params[:page]).per(12)
+    end
+  end
 
   private
 
   def post_params
     params.require(:post).permit(:image, :place, :address, :caption)
   end
-  
+
   # tag_listの表示において、tagの数順でTop5を表示するためのメソッド
   def tag_top5
     Tag.find(Tagging.group(:tag_id).order('count(post_id) desc').limit(5).pluck(:tag_id))
