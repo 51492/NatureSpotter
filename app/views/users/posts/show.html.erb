@@ -118,6 +118,10 @@
       },
     });
 
+    marker.addListener('click', function() {
+      window.location.href = "/" + gon.post.post_latitude + "/" + gon.post.post_longitude + "/posts";
+    });
+
     const myMapType = new google.maps.StyledMapType([
       {
         stylers: [

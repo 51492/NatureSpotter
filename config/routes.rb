@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   namespace :admins do
     resources :users, except: []
     resources :posts
+    get "search_tag" => "posts#search_tag"
+    get "search" => "searches#search"
   end
   # ==============================================================================
 

@@ -1,13 +1,14 @@
 <div class="d-flex flex-column flex-lg-row">
   <div class="mx-2 pt-1">
-    <h2><%= @word %>の検索結果</h2>
+    <h3 class="ch"><%= @word %>の検索結果</h3>
   </div>
 </div>
+
 
   <% if @range == "User" %> <!--検索対象モデルがUserの時 -->
 
     <% if @users.exists? %> <!--@usersにデータが存在するか確認し存在したらtrue-->
-      <%= render "users/partial_templates/users_index", users: @users %>
+      <%= render "admins/partial_templates/users_index", users: @users %>
 
     <!--<div class="row">-->
     <!--  <div class="col-2 col-md-4 col-lg-5"></div>-->
@@ -25,7 +26,7 @@
   <% else %> <!--検索対象モデルがUserではない時(= 検索対象モデルがPostの時) -->
     <% if @posts.exists? %>
       <hr>
-      <%= render "users/partial_templates/posts_index", posts: @posts %>
+      <%= render "admins/partial_templates/posts_index", posts: @posts %>
 
       <!--<div class="row my-3">-->
       <!--  <div class="col-2 col-md-4 col-lg-5"></div>-->
@@ -34,7 +35,7 @@
 
     <% else %>
     <div class="offset-lg-1">
-      <p>検索ワード "<%= @word %>" に該当する投稿は見つかりません。
+      検索ワード "<%= @word %>" に該当する投稿は見つかりません。
     </div>
 
     <% end %>
