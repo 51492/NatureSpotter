@@ -36,17 +36,17 @@
 
       <tr>
         <td style="width: 30%">フォロー</td>
-        <td style="width: 70%"><%= link_to @user.followings.count, user_followings_path(user_id: @user.id) %></td>
+        <td style="width: 70%"><%= @user.followings.count %></td>
       </tr>
 
       <tr>
         <td style="width: 30%">フォロワー</td>
-        <td style="width: 70%"><%= link_to @user.followers.count, user_followers_path(user_id: @user.id) %></td>
+        <td style="width: 70%"><%= @user.followers.count %></td>
       </tr>
 
       <tr>
-        <td style="width: 30%">いいねした投稿</td>
-        <td style="width: 70%"><%= link_to @user.likes.count, likes_user_path(@user) %></td>
+        <td style="width: 30%"></td>
+        <td style="width: 70%"></td>
       </tr>
 
     </table>
@@ -65,7 +65,7 @@
             <th>スポット名</th>
             <th>住所</th>
             <th></th>
-            <th></th>
+            <th>投稿日時</th>
           </tr>
         </thead>
 
@@ -77,10 +77,10 @@
                     <%= image_tag post.get_image(100, 100), class: "post-image" %>
                   <% end %>
                 </td>
-                <td><%= link_to post.place, post_path(post) %></td>
+                <td><%= link_to post.place, admins_post_path(post) %></td>
                 <td><%= post.address %></td>
                 <td></td>
-                <td></td>
+                <td><%= post.created_at.to_s(:datetime_jp) %></td>
             </tr>
           </tbody>
         <% end %>

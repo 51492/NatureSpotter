@@ -21,7 +21,14 @@
         <div class="container d-flex">
 
           <div class=>
-            <a class="navbar-brand px-2" href="/"><%= image_tag('header_logo.png', :size => '260x80') %></a>
+            <% if admin_signed_in? %>
+              <div class="d-flex align-items-center">
+                <%= link_to admins_posts_path do %><%= image_tag('header_logo.png', :size => '260x80') %><% end %>
+                <p class="mb-0 ml-n3">for admin</p>
+              </div>
+            <% else %>
+              <%= link_to root_path do %><%= image_tag('header_logo.png', :size => '260x80') %><% end %>
+            <% end %>
           </div>
 
           <div class="d-flex flex-row-reverse flex-grow-1 flex-fill">
@@ -37,7 +44,7 @@
                   <!--<li class="nav-item"> <%#= link_to "About", about_path, class: "nav-link" %> </li>-->
                   <li class="nav-item"> <%= link_to "Posts", admins_posts_path, class: "nav-link" %> </li>
                   <li class="nav-item"> <%= link_to "Users", admins_users_path, class: "nav-link" %> </li>
-                  <li class="nav-item"> <%#= link_to "Mypage", user_path(current_user), class: "nav-link" %> </li>
+                  <!--<li class="nav-item"> <%#= link_to "Mypage", user_path(current_user), class: "nav-link" %> </li>-->
                   <li class="nav-item"> <%= link_to "Logout", destroy_admin_session_path, method: :delete, class: "nav-link" %> </li>
 
                 <% elsif user_signed_in? %>
