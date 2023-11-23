@@ -47,8 +47,10 @@
 
         <!--タグリスト-->
         <% @tag_list.each do |list| %>
-          <i class="fa-sharp fa-solid fa-tag"></i>
-          <%= link_to list.tag, search_tag_path(tag_id: list.id) %>
+          <div class="mb-3">
+            <i class="fa-sharp fa-solid fa-tag"></i>
+            <%= link_to list.tag, search_tag_path(tag_id: list.id) %>
+          </div>
         <% end %>
 
         <!--いいねボタン-->

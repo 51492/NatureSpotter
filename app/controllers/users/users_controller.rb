@@ -1,6 +1,6 @@
 class Users::UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_guest, only: %i[update destroy]
+  before_action :check_guest, only: %i[update destroy withdrawal]
 
   def show
     @user = User.find(params[:id])
@@ -22,7 +22,7 @@ class Users::UsersController < ApplicationController
       render :edit
     end
   end
-  
+
   def withdrawal
     @user = User.find(params[:id])
     # is_deletedカラムをtrueに変更することにより削除フラグを立てる
@@ -52,7 +52,7 @@ class Users::UsersController < ApplicationController
 
   def check_guest
     if current_user.email == 'guest@example.com'
-      redirect_to root_path, alert: 'ゲストユーザーの編集・削除はできません。'
+      redirect_to root_path, alert: 'ゲストユーザーの編集・削除（退会）はできません。'
     end
   end
 end

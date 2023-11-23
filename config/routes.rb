@@ -41,8 +41,8 @@ Rails.application.routes.draw do
       end
 
       # 退会
-      get '/users/:id/unsubscribe' => 'users#unsubscribe', as: 'unsubscribe'
-      patch '/users/:id/withdrawal' => 'users#withdrawal', as: 'withdrawal'
+      get '/unsubscribe' => 'users#unsubscribe', as: 'unsubscribe'
+      patch '/withdrawal' => 'users#withdrawal', as: 'withdrawal'
 
     end
 

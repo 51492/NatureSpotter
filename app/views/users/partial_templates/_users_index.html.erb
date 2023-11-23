@@ -1,26 +1,25 @@
 <div class="row">
-  <div class="col-10 offset-1">
+  <div class="col-12 col-sm-10 offset-sm-1">
 
     <table class="table table-hover">
       <tbody>
         <% users.each do |user| %>
 
-          <tr>
+          <tr data-href="<%= user_path(user) %>">
             <td style="width: 20%">
-              <%= link_to user_path(user) do %>
                 <%= image_tag user.get_profile_image(100, 100), class: "rounded-circle" %>
-              <% end %>
             </td>
 
             <td style="width: 30%">
               <%= user.name %>
             </td>
 
-            <td style="width: 30%">
-              投稿数 <%= user.posts.count %>
+            <!--レイアウトの乱れ防止で576ピクセル以上でのみ表示 (576ピクセル未満で非表示)-->
+            <td class="d-none d-sm-block">
+              <div class="d-none d-sm-block">投稿数 <%= user.posts.count %></div>
             </td>
 
-            <td>
+            <td style="width: 10%">
               <% if user == current_user %> <!--表示してるユーザーが自分のとき-->
                 <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block" do %>
                   <i class="fas fa-user-edit"></i>
@@ -36,12 +35,23 @@
                   <i class="fa-solid fa-user-plus"></i>
                 <% end %>
 
-              <% end %>
+              <%# end %>
             </td>
           </tr>
+          <% end %>
         <% end %>
       </tbody>
     </table>
 
   </div>
 </div>
+
+<script>
+  $(document).ready(function() {
+    $('tr[data-href]').click(function (e) {
+      if (!$(e.target).is('a')) {
+        window.location = $(e.currentTarget).data('href');
+      };
+    });
+  });
+</script>

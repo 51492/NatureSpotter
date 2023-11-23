@@ -15,7 +15,7 @@
         </div>
 
         <div class="form-group my-3">
-          <h4>email</h4>
+          <h4>メールアドレス</h4>
           <%= f.email_field :email, class: "form-control" %>
         </div>
 
@@ -28,7 +28,7 @@
           <%= f.submit "更新", class: "btn btn-success" %>
         </div>
       <% end %>
-      
+
       <div class="float-right">
         <%= link_to "退会", user_unsubscribe_path(@user), class: "btn btn-danger" %>
       </div>

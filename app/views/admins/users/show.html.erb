@@ -1,11 +1,11 @@
-<div class="row">
-  <div class="col-sm-6 offset-sm-3 col-md-10 col-lg-3 offset-md-1 my-5">
-    <div class="row mt-3">
-      <%= image_tag @user.get_profile_image(250, 250), fallback: "no_image.jpg", class: "rounded-circle" %>
+<div class="row my-5">
+  <div class="col-md-5">
+    <div class="row mx-auto my-2 d-flex align-items-center justify-content-center">
+      <%= image_tag @user.get_profile_image(270, 270), fallback: "no_image.jpg", class: "rounded-circle" %>
     </div>
 
-    <div class="row mt-3">
-      <div class="col-md-5 col-lg-5 ml-lg-5 my-4">
+    <div class="row mx-auto my-3 d-flex align-items-center justify-content-center">
+      <div class="col-7 col-lg-4">
 
         <%= link_to edit_admins_user_path(@user), class: "btn btn-outline-secondary btn-block" do %>
           <i class="fas fa-user-edit"></i>
@@ -16,7 +16,7 @@
 
   </div>
 
-  <div class="col-sm-6 offset-sm-4 col-md-8 col-lg-6 offset-md-1 my-5 pt-lg-3">
+  <div class="col-md-6 my-4">
 
     <table class="table">
       <tr>
@@ -45,8 +45,14 @@
       </tr>
 
       <tr>
-        <td style="width: 30%"></td>
-        <td style="width: 70%"></td>
+        <td style="width: 30%">退会ステータス</td>
+        <td style="width: 70%">
+          <% if @user.is_withdrawal %>
+            <b class="text-secondary">退会</b>
+          <% else %>
+            <b class="text-success">入会</b>
+          <% end %>
+        </td>
       </tr>
 
     </table>
@@ -57,7 +63,7 @@
 <div class="row">
   <div class="col-md-10 offset-md-1 col-md-1 my-2">
     <h4 class="my-1"><%= @user.name %>さんの投稿</h4>
-      <table class="table my-3">
+      <table class="table table-hover my-3">
 
         <thead class="user-post-thead">
           <tr>
@@ -71,13 +77,9 @@
 
         <% @posts.each do |post| %>
           <tbody>
-             <tr>
-                <td>
-                  <%= link_to post_path(post) do %>
-                    <%= image_tag post.get_image(100, 100), class: "post-image" %>
-                  <% end %>
-                </td>
-                <td><%= link_to post.place, admins_post_path(post) %></td>
+             <tr data-href="<%= admins_post_path(post) %>">
+                <td><%= image_tag post.get_image(100, 100), class: "post-image" %></td>
+                <td><%= post.place %></td>
                 <td><%= post.address %></td>
                 <td></td>
                 <td><%= post.created_at.to_s(:datetime_jp) %></td>
@@ -93,3 +95,13 @@
   <div class="col-4 col-md-4 col-lg-5"></div>
   <div class="col-4 col-md-4"><%= paginate @posts %></div>
 </div>
+
+<script>
+  $(document).ready(function() {
+    $('tr[data-href]').click(function (e) {
+      if (!$(e.target).is('a')) {
+        window.location = $(e.currentTarget).data('href');
+      };
+    });
+  });
+</script>
