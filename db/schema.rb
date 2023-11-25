@@ -76,8 +76,8 @@ ActiveRecord::Schema.define(version: 2023_11_05_163057) do
     t.text "caption"
     t.string "place", null: false
     t.string "address", null: false
-    t.float "post_latitude"
-    t.float "post_longitude"
+    t.float "post_latitude", limit: 53
+    t.float "post_longitude", limit: 53
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_posts_on_user_id"
@@ -93,13 +93,11 @@ ActiveRecord::Schema.define(version: 2023_11_05_163057) do
   end
 
   create_table "taggings", force: :cascade do |t|
-    t.integer "post_id", null: false
-    t.integer "tag_id", null: false
+    t.bigint "post_id", null: false
+    t.bigint "tag_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["post_id", "tag_id"], name: "index_taggings_on_post_id_and_tag_id", unique: true
-    t.index ["post_id"], name: "index_taggings_on_post_id"
-    t.index ["tag_id"], name: "index_taggings_on_tag_id"
   end
 
   create_table "tags", force: :cascade do |t|
@@ -135,6 +133,4 @@ ActiveRecord::Schema.define(version: 2023_11_05_163057) do
   add_foreign_key "posts", "users"
   add_foreign_key "relationships", "users", column: "followed_id"
   add_foreign_key "relationships", "users", column: "follower_id"
-  add_foreign_key "taggings", "posts"
-  add_foreign_key "taggings", "tags"
 end
