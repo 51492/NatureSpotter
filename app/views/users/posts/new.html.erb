@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-12 col-md-8 mx-auto pt-4 pb-3">
     <h2 class="ch">新規投稿</h2>
-    
+
     <% if @post.errors.any? %>
       <%= @post.errors.count %>件のエラーが発生しました
       <ul>
@@ -13,4 +13,4 @@
   </div>
 </div>
 
-<%= render 'users/posts/form', post: @post %>
+<%= render 'users/partial_templates/form', post: @post %>

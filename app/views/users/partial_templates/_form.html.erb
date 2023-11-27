@@ -1,3 +1,5 @@
+<%= stylesheet_link_tag 'users/posts', media: 'all' %>
+
 <%= form_with model: post, local: true do |f| %>
   <%= f.hidden_field :post_latitude, id: "postLatitude" %>
   <%= f.hidden_field :post_longitude, id: "postLongitude" %>
@@ -19,8 +21,8 @@
         <td class="align-middle text-right"><label for="address"><h5 class="m-0">住所</h5></label></td>
         <td colspan="2">
           <div id="addressError"></div>
-          <%= f.text_field :address, id: "address", placeholder: "〇〇県〇〇市1-1-1", class: "form-control address" %>
-          <div id="form_map" style="width:100%;height:300px;"></div>
+          <%= f.text_field :address, id: "address", placeholder: "〇〇県〇〇市1-1-1", class: "mb-1 form-control address" %>
+          <div id="form_map" class="shadow" style="width:100%;height:300px;"></div>
         </td>
       </tr>
 
@@ -97,7 +99,7 @@
           $('#address').val("");
           $('#postLatitude').val("");
           $('#postLongitude').val("");
-          $('#addressError').html('<p style="color:red;">errors</p>');
+          $('#addressError').html('<p style="color:red; margin:0;">入力した住所に該当する座標が見つかりません。</p>');
         }
       });
     });
