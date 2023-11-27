@@ -19,5 +19,9 @@ module NatureSpotter
     #
     config.time_zone = 'Tokyo'
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # # エラーメッセージ日本語化
+    config.load_defaults 6.0
+    config.i18n.default_locale = :ja
   end
 end
