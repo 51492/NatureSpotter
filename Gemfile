@@ -77,8 +77,10 @@ gem "rename"
 # アプリ名変更の為に導入(outdoor_mapからNatureSpotterに変更)
 # 参考：https://autovice.jp/articles/38
 
-# ユーザー機能のgem
+# ユーザー機能のgem(エラーメッセージ日本語化)
 gem "devise"
+gem 'devise-i18n'
+gem 'devise-i18n-views'
 
 # ページネーションのgem
 gem 'kaminari', '~> 1.2.1'
@@ -96,3 +98,5 @@ gem 'html2slim'
 
 # エラーメッセージ日本語化
 gem 'rails-i18n'
+
+
