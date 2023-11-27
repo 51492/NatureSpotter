@@ -77,7 +77,7 @@ class Users::PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:image, :place, :address, :caption)
+    params.require(:post).permit(:image, :place, :address, :caption, :post_latitude, :post_longitude)
   end
 
   # tag_listの表示において、tagの数順でTop5を表示するためのメソッド

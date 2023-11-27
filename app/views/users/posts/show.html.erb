@@ -88,7 +88,7 @@
 </div>
 
 
-
+<%= @post.post_latitude.inspect %> <%= @post.post_longitude.inspect %>
 <!--マップ表示JS-->
 <script>
 
@@ -99,15 +99,15 @@
     let geocoder = new google.maps.Geocoder()
 
     let map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: gon.post.post_latitude, lng: gon.post.post_longitude},
-      zoom: 12
+      center: {lat: <%= @post.post_latitude.present? ? @post.post_latitude : 35.6867908 %>, lng: <%= @post.post_longitude.present? ? @post.post_longitude : 139.6735760273143 %>},
+      zoom: 15
     });
 
     let marker = new google.maps.Marker({
       // コントローラーで定義した変数から緯度経度を呼び出し、マーカーを立てる
       position: {
-        lat: gon.post.post_latitude,
-        lng: gon.post.post_longitude
+        lat: <%= @post.post_latitude.present? ? @post.post_latitude : 0 %>,
+        lng: <%= @post.post_longitude.present? ? @post.post_longitude : 0 %>
       },
       map: map,
 
@@ -120,51 +120,124 @@
       },
     });
 
-    marker.addListener('click', function() {
-      window.location.href = "/" + gon.post.post_latitude + "/" + gon.post.post_longitude + "/posts";
+    // 情報ウィンドウ設定
+    const latlng = new google.maps.LatLng(<%= @post.post_latitude %>, <%= @post.post_longitude %>);
+    const info = '<div class="info">' + '<p style="margin:0;"><a href="https://maps.google.co.jp/maps?q=' + latlng + '&iwloc=J" target="_blank" rel="noopener noreferrer">Googleマップで見る</a></p>' + '</div>';
+    var infowindow = new google.maps.InfoWindow({
+      content: info
     });
 
+    // 情報ウィンドウ表示
+    infowindow.open(map, marker);
+
+    marker.addListener('click', function() {
+      window.location.href = "/" + <%= @post.post_latitude.present? ? @post.post_latitude : 0 %> + "/" + <%= @post.post_longitude.present? ? @post.post_longitude : 0 %> + "/posts";
+    });
+
+    // スタイルの設定
     const myMapType = new google.maps.StyledMapType([
       {
+        featureType: "landscape",
+        elementType: "geometry",
+        stylers: [
+          {visibility: "on"},
+        ],
+      },
+
+      {
+        featureType: "landscape",
+        elementType: "labels",
         stylers: [
           {visibility: "simplified"},
         ],
       },
 
       {
+        featureType: 'poi',
+        elementType: "labels",
+        stylers: [
+          {visibility: "on"},
+        ],
+      },
+
+      {
+        featureType: "poi.attraction",
+        elementType: "labels",
+        stylers: [
+          {visibility: "on"},
+        ],
+      },
+
+      {
+        featureType: "poi.business",
+        elementType: "labels",
+        stylers: [
+          {visibility: "on"},
+        ],
+      },
+
+      {
+        featureType: "poi.medical",
+        elementType: "labels",
+        stylers: [
+          {visibility: "off"},
+        ],
+      },
+
+      {
+        featureType: "poi.school",
+        elementType: "labels",
+        stylers: [
+          {visibility: "off"},
+        ],
+      },
+
+      {
+        featureType: "poi.sports_complex",
+        elementType: "labels",
+        stylers: [
+          {visibility: "off"},
+        ],
+      },
+
+      {
+        featureType: "road",
+        elementType: "geometry",
+        stylers: [
+          {lightness: 57},
+        ],
+      },
+
+      {
+        featureType: "road",
+        elementType: "labels.text.fill",
+        stylers: [
+          {visibility: "on"},
+          {lightness: 24},
+        ],
+      },
+
+      {
+        featureType: "road",
+        elementType: "labels.icon",
+        stylers: [
+          {visibility: "off"},
+        ],
+      },
+
+      {
+        featureType: "transit",
+        elementType: "labels",
+        stylers: [
+          {visibility: "on"},
+        ],
+      },
+
+      {
         featureType: "water",
-        elementType: "geometry.fill",
+        elementType: "labels",
         stylers: [
-          {hue: "#003bff"},
-          {color: "#8ecdf0"},
-        ],
-      },
-
-      {
-        featureType: 'road.highway',
-        stylers: [
-          {visibility: "off"},
-        ],
-      },
-
-      {
-        featureType: "landscape",
-        stylers: [
-          {color: "#dbe8e5"},
-        ],
-      },
-
-      {
-        featureType: "poi.park",
-        stylers: [
-          {color: "#e6e6e6"},
-        ],
-      },
-
-      {
-        featureType: "transit.line",
-        stylers: [
-          {visibility: "off"},
+          {visibility: "on"},
         ],
       },
 

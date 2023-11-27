@@ -1,0 +1,231 @@
+<%= form_with model: post, local: true do |f| %>
+  <%= f.hidden_field :post_latitude, id: "postLatitude" %>
+  <%= f.hidden_field :post_longitude, id: "postLongitude" %>
+  <div class="row">
+    <table class="col-10 mx-auto table">
+
+      <tr class="form-group">
+        <td class="align-middle text-right"><h5 class="m-0">画像</h5></td>
+        <td><%= f.file_field :image, accept: "image/*" %></td>
+        <td></td>
+      </tr>
+
+      <tr>
+        <td class="align-middle text-right"><label for="place"><h5 class="m-0">スポット名</h5></label></td>
+        <td colspan="2"><%= f.text_field :place, id: "place", placeholder: "〇〇公園", class: "form-control place" %></td>
+      </tr>
+
+      <tr>
+        <td class="align-middle text-right"><label for="address"><h5 class="m-0">住所</h5></label></td>
+        <td colspan="2">
+          <div id="addressError"></div>
+          <%= f.text_field :address, id: "address", placeholder: "〇〇県〇〇市1-1-1", class: "form-control address" %>
+          <div id="form_map" style="width:100%;height:300px;"></div>
+        </td>
+      </tr>
+
+      <tr>
+        <td class="align-middle text-right"><label for="caption"><h5 class="m-0">説明</h5></label></td>
+        <td colspan="2"><%= f.text_area :caption, id: "caption", placeholder: "説明文を入力", class: "form-control caption", rows: 4 %></td>
+      </tr>
+
+      <tr>
+        <td class="align-middle text-right"><label for="tag"><h5 class="m-0">タグ</h5></label></td>
+        <td colspan="2"><%= f.text_field :tag, id: "tag", placeholder: "キャンプ,釣り,スキー (半角「,」で区切ると複数タグ付け可能)", class: "form-control address" %></td>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td colspan="2", class="row">
+          <div class="col-6">
+            <%= f.submit '投稿', class: "btn btn-success btn-block btn-lg" %>
+          </div>
+        </td>
+      </tr>
+    </table>
+
+  </div>
+<% end %>
+
+
+<script>
+  let map;
+  let marker;
+  let formMarker;
+
+  function start() {
+    return { lat: <%= (post.post_latitude if post.post_latitude.present? ) || 35.68902282142941 %>,
+             lng: <%= (post.post_longitude if post.post_longitude.present? ) || 139.69142432208977 %> }
+  }
+
+  function initMap() {
+    const mapPosition = start();
+    const mapArea = document.getElementById('form_map');
+    const mapOptions = {
+      center: mapPosition,
+      zoom: 16,
+    };
+    const formMap = new google.maps.Map(mapArea, mapOptions);
+    formMarker = new google.maps.Marker({
+        map: formMap,
+        position: mapPosition
+    });
+
+    $("#address").on("change", (e) => {
+      const target = e.target.value
+      console.log(target);
+
+      if (formMarker != null) {
+        formMarker.setMap(null)
+      };
+
+      let geocoder = new google.maps.Geocoder();
+
+      geocoder.geocode({ 'address': target }, function(results, status) {
+        if (status == 'OK') {
+          const center = results[0].geometry.location
+          formMap.setCenter(center);
+          formMarker = new google.maps.Marker({
+              map: formMap,
+              position: center
+          });
+
+          $('#postLatitude').val(center.lat());
+          $('#postLongitude').val(center.lng());
+
+        } else {
+          $('#address').val("");
+          $('#postLatitude').val("");
+          $('#postLongitude').val("");
+          $('#addressError').html('<p style="color:red;">errors</p>');
+        }
+      });
+    });
+
+    $("#address").on("keyup", (e) => {
+      console.log(e.target)
+      if (e.target.value.length != 0) {
+        $('#addressError').text("");
+      }
+    });
+
+    // スタイルの設定
+    const myMapType = new google.maps.StyledMapType([
+      {
+        featureType: "landscape",
+        elementType: "geometry",
+        stylers: [
+          {visibility: "on"},
+        ],
+      },
+
+      {
+        featureType: "landscape",
+        elementType: "labels",
+        stylers: [
+          {visibility: "simplified"},
+        ],
+      },
+
+      {
+        featureType: 'poi',
+        elementType: "labels",
+        stylers: [
+          {visibility: "on"},
+        ],
+      },
+
+      {
+        featureType: "poi.attraction",
+        elementType: "labels",
+        stylers: [
+          {visibility: "on"},
+        ],
+      },
+
+      {
+        featureType: "poi.business",
+        elementType: "labels",
+        stylers: [
+          {visibility: "on"},
+        ],
+      },
+
+      {
+        featureType: "poi.medical",
+        elementType: "labels",
+        stylers: [
+          {visibility: "off"},
+        ],
+      },
+
+      {
+        featureType: "poi.school",
+        elementType: "labels",
+        stylers: [
+          {visibility: "off"},
+        ],
+      },
+
+      {
+        featureType: "poi.sports_complex",
+        elementType: "labels",
+        stylers: [
+          {visibility: "off"},
+        ],
+      },
+
+      {
+        featureType: "road",
+        elementType: "geometry",
+        stylers: [
+          {lightness: 57},
+        ],
+      },
+
+      {
+        featureType: "road",
+        elementType: "labels.text.fill",
+        stylers: [
+          {visibility: "on"},
+          {lightness: 24},
+        ],
+      },
+
+      {
+        featureType: "road",
+        elementType: "labels.icon",
+        stylers: [
+          {visibility: "off"},
+        ],
+      },
+
+      {
+        featureType: "transit",
+        elementType: "labels",
+        stylers: [
+          {visibility: "on"},
+        ],
+      },
+
+      {
+        featureType: "water",
+        elementType: "labels",
+        stylers: [
+          {visibility: "on"},
+        ],
+      },
+
+    ],
+      {
+        name: 'ラベルなし',
+    });
+
+    var myMapTypeId = 'my_style';
+
+    // 地図にスタイルを追加
+    formMap.mapTypes.set(myMapTypeId, myMapType);
+    formMap.setMapTypeId(myMapTypeId);
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GMAP_API'] %>&callback=initMap" async defer></script>
