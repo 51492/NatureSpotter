@@ -92,10 +92,6 @@ gem "net-smtp"
 gem "net-pop"
 gem "net-imap"
 
-# slimを使う
-gem 'slim-rails'
-gem 'html2slim'
-
 # エラーメッセージ日本語化
 gem 'rails-i18n'
 

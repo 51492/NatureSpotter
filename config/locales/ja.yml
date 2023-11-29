@@ -7,3 +7,10 @@ ja:
         place: スポット名
         address: 住所
         caption: 説明
+  views:
+    pagination:
+      first: "<<"
+      last: ">>"
+      previous: "<"
+      next: ">"
+      truncate: "…"
