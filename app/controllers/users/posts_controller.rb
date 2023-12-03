@@ -11,12 +11,25 @@ class Users::PostsController < ApplicationController
 
     tag_list = params[:post][:tag].split(",").map(&:strip) # paramsで受け取った値を「,」で区切ってハッシュにし、スペースを空白と同じ扱いとする
 
-    if @post.save
+    if post_params[:image].present?
+      result = Vision.image_analysis(post_params[:image])
+      if result
+        if @post.save
+          redirect_to post_path(@post), notice:"投稿が完了しました"
+        else
+          flash.now[:alert] = "投稿に失敗しました"
+          render :new, status: :unprocessable_entity
+        end
+      else
+        flash.now[:alert] = "不適切なコンテンツは投稿できません"
+        render :new, status: :unprocessable_entity
+      end
+    elsif @post.save
       @post.save_tags(tag_list)
       redirect_to post_path(@post), notice:"投稿が完了しました"
     else
       flash.now[:alert] = '投稿に失敗しました'
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -45,12 +58,26 @@ class Users::PostsController < ApplicationController
 
     tag_list = params[:post][:tag].gsub(/[[:space:]]/, '').split(",") # paramsで受け取った値を「,」で区切ってハッシュにし、スペースを空白と同じ扱いとする
 
-    if @post.update(post_params)
+    if post_params[:image].present?
+      result = Vision.image_analysis(post_params[:image])
+      if result
+        if @post.update(post_params)
+          redirect_to post_path(@post), notice: "投稿編集が完了しました"
+        else
+          flash.now[:alert] = '投稿編集に失敗しました'
+          render :edit, status: :unprocessable_entity
+        end
+      else
+        flash.now[:alert] = "不適切なコンテンツは投稿できません"
+        render :edit, status: :unprocessable_entity
+      end
+
+    elsif @post.update(post_params)
       @post.save_tags(tag_list)
       redirect_to post_path(@post), notice: "投稿編集が完了しました"
     else
       flash.now[:alert] = '投稿編集に失敗しました'
-      render "edit"
+      render :edit, status: :unprocessable_entity
     end
   end
 
