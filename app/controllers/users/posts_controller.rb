@@ -9,12 +9,13 @@ class Users::PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.user_id = current_user.id
 
-    tag_list = params[:post][:tag].split(",").map(&:strip) # paramsで受け取った値を「,」で区切ってハッシュにし、スペースを空白と同じ扱いとする
+    tag_list = params[:post][:tag].gsub(/[[:space:]]/, '').split(",") # paramsで受け取った値を「,」で区切ってハッシュにし、スペースを空白と同じ扱いとする
 
     if post_params[:image].present?
       result = Vision.image_analysis(post_params[:image])
       if result
         if @post.save
+          @post.save_tags(tag_list)
           redirect_to post_path(@post), notice:"投稿が完了しました"
         else
           flash.now[:alert] = "投稿に失敗しました"
