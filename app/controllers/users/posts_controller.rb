@@ -22,7 +22,7 @@ class Users::PostsController < ApplicationController
           render :new, status: :unprocessable_entity
         end
       else
-        flash.now[:alert] = "不適切な画像は投稿できません"
+        flash.now[:alert] = "不適切な画像と判断したため投稿は取り消されました"
         render :new, status: :unprocessable_entity
       end
     elsif @post.save
