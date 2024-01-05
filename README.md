@@ -24,7 +24,19 @@
 
 ## 設計書
 <!--テーマを設定・提出する時点では不要です-->
+- ER図  
+  ![NatureSpotter_ER図 drawio](https://github.com/51492/NatureSpotter/assets/143589587/eb974e34-ecc5-4599-89dc-d57f7ff5c436)
 
+- UI Flow図  
+  ![NatureSpotter_UI Flows(会員側) drawio](https://github.com/51492/NatureSpotter/assets/143589587/d2e25cfe-9c9d-48d7-887a-e4605d5017f4)  
+  ![NatureSpotter_UI Flows(管理者側)](https://github.com/51492/NatureSpotter/assets/143589587/13650116-229d-4860-b0f9-833c2b17b00e)  
+
+  
+- ワイヤーフレーム  
+  - 会員側  
+  ![NatureSpotter_ワイヤーフレーム(user) drawio](https://github.com/51492/NatureSpotter/assets/143589587/5591f531-3906-44db-bb1a-bfc1f2e685bb)
+  - 管理者側
+  ![NatureSpotter_ワイヤーフレーム(admin) drawio](https://github.com/51492/NatureSpotter/assets/143589587/113dae00-ef10-40af-8e49-9198fc9aa632)
 ## 開発環境
 - OS：Windows 11 Home
 - 言語：HTML,CSS,JavaScript,Ruby,SQL
