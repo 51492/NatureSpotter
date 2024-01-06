@@ -37,6 +37,9 @@
   ![NatureSpotter_ワイヤーフレーム(user) drawio](https://github.com/51492/NatureSpotter/assets/143589587/5591f531-3906-44db-bb1a-bfc1f2e685bb)
   - 管理者側
   ![NatureSpotter_ワイヤーフレーム(admin) drawio](https://github.com/51492/NatureSpotter/assets/143589587/113dae00-ef10-40af-8e49-9198fc9aa632)
+
+- テーブル定義書
+  ![テーブル定義書](https://github.com/51492/NatureSpotter/assets/143589587/35cf8278-27b6-44da-8baa-19a43f9d5475)
 ## 開発環境
 - OS：Windows 11 Home
 - 言語：HTML,CSS,JavaScript,Ruby,SQL
